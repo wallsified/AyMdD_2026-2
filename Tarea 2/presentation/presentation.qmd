@@ -1,0 +1,70 @@
+---
+title: "Tarea #2"
+subtitle: "EDA, Personas Desaparecidas en México"
+format:
+  revealjs:
+    theme: night
+    css: styles.css
+    scrollable: true
+    slide-number: true
+    controls-tutorial: true
+    controls-layout: bottom-right
+    progress: true
+    center: true
+    autoPlayMedia: true
+    touch: true
+    preview-links: auto
+    logo: imagenes/logos_unam.png
+    footer: 'Almacenes y Minería de Datos (26-2)'
+author:
+  - name: "Méndez Ávila Luis Geovanni"
+    affiliation: "317143980"
+  - name: "Sánchez Rosas Roberto Samuel"
+    affiliation: "318355159"
+  - name: "Domínguez Sánchez Gustavo Alonso"
+    affiliation: "418047121"
+  - name: "Paredes Zamudio Luis Daniel"
+    affiliation: "318159926"
+---
+
+
+## Ejemplo de texto con clases personalizadas
+
+En este análisis, el hallazgo <span class="kw">clave</span> es que existe una concentración temporal en ciertos periodos.
+
+También hay un <span class="detail">detalle importante</span> al segmentar por entidad federativa.
+
+La calidad de los datos fue <span class="ok">adecuada</span> para generar visualizaciones confiables.
+
+<span class="muted">Nota: este texto usa la clase `muted` para información secundaria.</span>
+
+---
+
+## Ejemplo de código Python
+
+```python
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv("datos/desaparecidos.csv")
+
+# Limpieza básica
+df["edad"] = pd.to_numeric(df["edad"], errors="coerce")
+df = df.dropna(subset=["fecha_desaparicion", "entidad"])
+
+# Resumen
+print(df.groupby("entidad")["id_persona"].count().sort_values(ascending=False).head(10))
+```
+
+Texto con `inline code`: `df.groupby("entidad").size()` y una palabra <span class="kw">clave</span> en la misma línea.
+
+---
+
+## Ejemplo de tabla (estilos en encabezados y líneas)
+
+| Indicador | Valor | Comentario |
+|---|---|---|
+| Registros totales | 125,430 | <span class="ok">Carga completa</span> |
+| Registros con entidad | 122,018 | Cobertura alta |
+| Registros sin fecha | 3,411 | <span class="detail">Requiere imputación o exclusión</span> |
+| Duplicados detectados | 842 | <span class="kw">Revisar regla de deduplicación</span> |

@@ -11,3 +11,18 @@ assets/external/
 .env
 uv.lock
 .python-version
+
+# latex stuff
+*.aux
+*.out
+*.log
+*.run
+
+# datasets
+*.csv
+*.json
+*.xlsx
+*.zip
+
+# quatro config files
+presentation_files/
