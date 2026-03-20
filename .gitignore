@@ -10,7 +10,6 @@ assets/external/
 .DS_Store
 .env
 uv.lock
-.python-version
 
 # latex stuff
 *.aux
@@ -26,3 +25,6 @@ uv.lock
 
 # quatro config files
 presentation_files/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
