@@ -75,6 +75,7 @@ author:
 ### Primera Exploración del Dataset
 
 ```{python}
+import nbformat
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns

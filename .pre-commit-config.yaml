@@ -29,7 +29,7 @@ repos:
     hooks:
       - id: forbid-new-submodules
       - id: no-commit-to-branch
-        args: ["--branch", "main", "--branch", "master"]
+        args: ["--branch", "master"]
 
   # Hook personalizado para bloquear archivos .env.
   - repo: local
