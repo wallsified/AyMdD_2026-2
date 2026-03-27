@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{dsfont}
+
+\input{estructura/packages} % Se agregan los paquetes utilizados en el documento.
+\input{estructura/estilo} % Define la marca de agua, encabezado y pie de página.
+
+
+\begin{document} % Inicia el Archivo.
+
+\input{estructura/portada} % Agrega la Portada.
+\newpage
+
+% Descomentar si se necesita agregar índice
+%\tableofcontents
+%\newpage
+
+\begin{spacing}{1.5}
+    \input{contenido/reporte}
+\end{spacing}
+
+\newpage
+\nocite{*}
+\printbibliography
+\end{document}

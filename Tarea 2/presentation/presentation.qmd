@@ -1,0 +1,80 @@
+---
+title: "Tarea #2"
+subtitle: "EDA, Personas Desaparecidas en México"
+tbl-colwidths: [25,25]
+format:
+  revealjs:
+    theme: night
+    css: styles.css
+    scrollable: true
+    slide-number: true
+    controls-tutorial: true
+    controls-layout: bottom-right
+    progress: true
+    center: true
+    autoPlayMedia: true
+    touch: true
+    preview-links: auto
+    logo: imagenes/logos_unam.png
+    footer: 'Almacenes y Minería de Datos (26-2)'
+author:
+  - name: "Méndez Ávila Luis Geovanni"
+    affiliation: "317143980"
+  - name: "Sánchez Rosas Roberto Samuel"
+    affiliation: "318355159"
+  - name: "Domínguez Sánchez Gustavo Alonso"
+    affiliation: "418047121"
+  - name: "Paredes Zamudio Luis Daniel"
+    affiliation: "318159926"
+---
+
+## Contexto del Dataset
+
+---
+
+## Diccionario de Datos
+
+| Variable         | Descripcion                                                                                     | Tipo Dato (Pandas)   | Tipo Dato (Semantico)   | Tipo Estadistico   |   # No Nulos |   # Nulos |   # Únicos No Nulos | Ejemplos                                                                                   |
+|:-----------------|:------------------------------------------------------------------------------------------------|:---------------------|:------------------------|:-------------------|-------------:|----------:|--------------------:|:-------------------------------------------------------------------------------------------|
+| dataset_id       | Identificador único del registro.                                                               | int64                | entero                  | numérico           |        89720 |         0 |               89720 | 1, 2                                                                                       |
+| nombrecompleto   | Nombre completo de la persona reportada como desaparecida/no localizada.                        | str                  | texto                   | categórico         |        89720 |         0 |               88513 | LUIS ADRIAN JUAREZ MORALES, ERNESTO ALONSO HERNANDEZ GUTIERREZ                             |
+| rnpdno_json      | Presencia/coincidencia en RNPDNO (0/1).                                                         | int64                | entero                  | numérico           |        89720 |         0 |                   2 | 1, 0                                                                                       |
+| entidad_desap    | Entidad donde se reporta la desaparición/no localización.                                       | str                  | texto                   | categórico         |        89720 |         0 |                  33 | QUERETARO, CHIHUAHUA                                                                       |
+| pre_rnped        | Indicador previo asociado a RNPED (0/1), usado para cruce/validación entre fuentes.             | int64                | entero                  | numérico           |        89720 |         0 |                   2 | 0, 1                                                                                       |
+| rnped            | Presencia/coincidencia con registros RNPED (0/1).                                               | int64                | entero                  | numérico           |        89720 |         0 |                   2 | 0, 1                                                                                       |
+| rnpdno_csv       | Presencia/coincidencia en RNPDNO en formato CSV (0/1).                                          | int64                | entero                  | numérico           |        89720 |         0 |                   2 | 1, 0                                                                                       |
+---
+
+## Diccionario de Datos (Continuación)
+| Variable         | Descripcion                                                                                     | Tipo Dato (Pandas)   | Tipo Dato (Semantico)   | Tipo Estadistico   |   # No Nulos |   # Nulos |   # Únicos No Nulos | Ejemplos                                                                                   |
+|:-----------------|:------------------------------------------------------------------------------------------------|:---------------------|:------------------------|:-------------------|-------------:|----------:|--------------------:|:-------------------------------------------------------------------------------------------|
+| bg_1             | Bandera/indicador auxiliar de consistencia o disponibilidad de información (primer indicador).  | int64                | entero                  | numérico           |        89720 |         0 |                   2 | 0, 1                                                                                       |
+| estatus_busqueda | Estatus del proceso de búsqueda.                                                                | str                  | texto                   | categórico         |        62356 |     27364 |                   9 | Con indicios / Ubicada, Se busca reportante                                                |
+| bg_2             | Bandera/indicador auxiliar de consistencia o disponibilidad de información (segundo indicador). | int64                | entero                  | numérico           |        89720 |         0 |                   2 | 0, 1                                                                                       |
+| fub              | Folio Único de Búsqueda.                                                                        | str                  | texto                   | categórico         |        63670 |     26050 |               63089 | 187731B1B-3302-4BE3-81D5-018CFB86A00B, 122009919-199C-4B90-8462-935A6EDCE439               |
+| DC_id            | Identificador de cruce o conciliación entre distintas fuentes (JSON/CSV/FUB).                   | str                  | texto                   | categórico         |        80069 |      9651 |               79657 | 101 (json), 5673 (csv), 349 (json), 448 (csv), 187731B1B-3302-4BE3-81D5-018CFB86A00B (fub) |
+| fecha_desap      | Fecha de desaparición o no localización reportada.                                              | str                  | fecha (texto parseable) | categórico         |        82795 |      6925 |                7749 | 19/04/2023, 12/07/2016                                                                     |
+
+---
+
+## Prolemáticas a Resolver
+
+1. ¿Cuáles son las <span class="kw">entidades con mayor incidencia</span> de desapariciones?
+2. ¿Cuál es la tendencia de desapariciones a lo largo del tiempo? ¿<span class="kw">Aumentan o disminuyen</span> los desaparecidos?
+3. ¿Qué proporción de casos está <span class="kw">activo vs. resuelto</span>?
+4. ¿Cuál es la <span class="kw">tasa de resolución por entidad</span>? ¿Hay entidades más efectivas que otras?
+
+---
+
+## Criterios de Éxito
+
+- Se deben de <span class="ok">identificar</span> de forma clara las <span class="ok">tendencias temporales y globales</span> en el dataset.
+- Es de gran importancia <span class="ok">detectar zonas críticas</span> para conocer donde se deben aplicar más esfuerzos en resolver estos casos.
+- Al ser un dataset con muchas inconsistencias, debemos llegar a los <span class="ok">resultados más interpretables posibles</span>.
+
+---
+
+## Análisis Exploratorios Realizados
+
+
+## Tendencias Identificador
