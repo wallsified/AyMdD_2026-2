@@ -28,11 +28,7 @@ author:
     affiliation: "318159926"
 ---
 
-## Contexto del Dataset
-
----
-
-## Diccionario de Datos
+### Diccionario de Datos
 
 | Variable         | Descripcion                                                                                     | Tipo Dato (Pandas)   | Tipo Dato (Semantico)   | Tipo Estadistico   |   # No Nulos |   # Nulos |   # Únicos No Nulos | Ejemplos                                                                                   |
 |:-----------------|:------------------------------------------------------------------------------------------------|:---------------------|:------------------------|:-------------------|-------------:|----------:|--------------------:|:-------------------------------------------------------------------------------------------|
@@ -45,7 +41,8 @@ author:
 | rnpdno_csv       | Presencia/coincidencia en RNPDNO en formato CSV (0/1).                                          | int64                | entero                  | numérico           |        89720 |         0 |                   2 | 1, 0                                                                                       |
 ---
 
-## Diccionario de Datos (Continuación)
+### Diccionario de Datos (Continuación)
+
 | Variable         | Descripcion                                                                                     | Tipo Dato (Pandas)   | Tipo Dato (Semantico)   | Tipo Estadistico   |   # No Nulos |   # Nulos |   # Únicos No Nulos | Ejemplos                                                                                   |
 |:-----------------|:------------------------------------------------------------------------------------------------|:---------------------|:------------------------|:-------------------|-------------:|----------:|--------------------:|:-------------------------------------------------------------------------------------------|
 | bg_1             | Bandera/indicador auxiliar de consistencia o disponibilidad de información (primer indicador).  | int64                | entero                  | numérico           |        89720 |         0 |                   2 | 0, 1                                                                                       |
@@ -74,7 +71,267 @@ author:
 
 ---
 
-## Análisis Exploratorios Realizados
+### Primera Exploración del Dataset
 
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
 
-## Tendencias Identificador
+dataset_path = "../dataset/tot_reg_desap.csv"
+df = pd.read_csv(dataset_path)
+print(f"Total de Filas: {df.shape[0]}")
+print(f"Total de Columnas: {df.shape[1]}")
+print(df.columns.to_list())
+df_ord_fechas = df.sort_values(by="fecha_desap").dropna()
+primero_y_ultimo = df_ord_fechas.iloc[[0, -1]]
+print("\nPrimera Fecha y última fecha:")
+print(primero_y_ultimo["fecha_desap"])
+df.head()
+```
+---
+
+### Reducción de Dimensionalidad
+
+```{python}
+# Nuevo dataset con columnas clave
+df = pd.read_csv(dataset_path)
+df_reducido = df[["nombrecompleto", "entidad_desap", "estatus_busqueda", "fecha_desap"]]
+
+# Convertir fecha
+df_reducido["fecha_desap"] = df_reducido["fecha_desap"].str.split(",").str[0]
+df_reducido["fecha_desap"] = pd.to_datetime(df_reducido["fecha_desap"], dayfirst=True, errors="coerce")
+df_reducido["anio_desap"] = df_reducido["fecha_desap"].dt.year
+
+duplicados = df_reducido[df_reducido.duplicated()]
+# Eliminar aquellos duplicados que tengan los 4 campos iguales (nombre, entidad, estatus, fecha)
+df_reducido = df_reducido.drop_duplicates(subset=[
+    'nombrecompleto',
+    'entidad_desap',
+    'estatus_busqueda',
+    'fecha_desap'
+])
+duplicados = df_reducido[df_reducido.duplicated()]
+print("Dataset reducido tras pre-procesamiento: \n\n", df_reducido)
+print("\n\n Revisamos limpieza de duplicados correcta mostrando el dataframe de 'duplicados' vacío: \n\n")
+print(duplicados)
+```
+---
+
+### Análisis de Frecuencias
+
+```{python}
+frecuencias_entidad = df_reducido['entidad_desap'].value_counts()
+frecuencias_anio = df_reducido['anio_desap'].value_counts().sort_index()
+frecuencias_estatus = df_reducido['estatus_busqueda'].value_counts()
+media_entidades = frecuencias_entidad.mean()
+print("La media de desapariciones por entidad es: " + str(media_entidades))
+media_anual = frecuencias_anio.mean()
+print("La media de desapariciones por anio es: " + str(media_anual))
+mediana_anio = df_reducido['anio_desap'].median()
+print("La mediana de los anios del dataset es: " + str(mediana_anio))
+moda_anio = df_reducido['anio_desap'].mode()
+print("La moda de los anios del dataset es: " + str(moda_anio))
+moda_estado = df_reducido['entidad_desap'].mode()
+print("La moda de los estados del dataset es: " + str(moda_estado))
+moda_estatus = df_reducido['estatus_busqueda'].mode()
+print("La moda de los estados de busqueda del dataset es: " + str(moda_estatus))
+```
+---
+
+```{python}
+# Grafica por Estado
+
+plt.figure(figsize=(12, 6))
+frecuencias_entidad.plot(kind='bar')
+plt.title('Concentración de Desapariciones por Estado')
+plt.xlabel('Estado')
+plt.ylabel('Casos')
+plt.xticks(rotation=90)
+plt.locator_params(axis='y', nbins=20)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+```{python}
+plt.figure(figsize=(15, 6))
+frecuencias_anio.plot(kind='bar')
+plt.title('Desapariciones por año')
+plt.xlabel('Año')
+plt.ylabel('Casos')
+plt.xticks(rotation=90)
+plt.locator_params(axis='y', nbins=20)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+### Medidas de Variabilidad
+
+```{python}
+resumen_varianzas_anio = pd.DataFrame({
+    "media": [df_reducido["anio_desap"].mean()],
+    "varianza": [df_reducido["anio_desap"].var()],
+    "desv_std": [df_reducido["anio_desap"].std()],
+    "min": [df_reducido["anio_desap"].min()],
+    "q1": [df_reducido["anio_desap"].quantile(0.25)],
+    "mediana": [df_reducido["anio_desap"].median()],
+    "q3": [df_reducido["anio_desap"].quantile(0.75)],
+    "max": [df_reducido["anio_desap"].max()],
+})
+
+resumen_varianzas_anio["rango"] = resumen_varianzas_anio["max"] - resumen_varianzas_anio["min"]
+resumen_varianzas_anio["IQR"] = resumen_varianzas_anio["q3"] - resumen_varianzas_anio["q1"]
+resumen_varianzas_anio["CV"] = resumen_varianzas_anio["desv_std"] / resumen_varianzas_anio["media"]
+resumen_varianzas_anio
+```
+
+---
+
+```{python}
+df_reducido["dias_desde_inicio"] = (df_reducido["fecha_desap"] - df_reducido["fecha_desap"].min()).dt.days
+
+# Boxplot de Año de Desaparición
+plt.figure(figsize=(12, 6))
+df_reducido["anio_desap"].dropna().plot(kind="box")
+plt.title("Variabilidad de Desapariciones por Año")
+plt.ylabel("Año")
+plt.locator_params(axis='y', nbins=20)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+```{python}
+# Boxplot de Dias desde la Desparación
+plt.figure(figsize=(12, 6))
+df_reducido["dias_desde_inicio"].dropna().plot(kind="box")
+plt.title("Variabilidad en días desde la primera desaparición registrada")
+plt.ylabel("Días")
+plt.locator_params(axis='y', nbins=20)
+plt.tight_layout()
+plt.show()
+```
+---
+
+### Medidas de Heterogeneidad
+
+```{python}
+def entropia_shannon(serie):
+    p = serie.value_counts(normalize=True, dropna=True)
+    return -np.sum(p * np.log(p))
+
+def indice_gini(array):
+    array = array.dropna().values
+    if len(array) == 0:
+        return np.nan
+    array = np.sort(array)
+    n = len(array)
+    return (np.sum((2 * np.arange(1, n+1) - n - 1) * array)) / (n * np.sum(array))
+
+heterogeneidad = pd.DataFrame({
+    "Variable": ["entidad_desap", "estatus_busqueda", "anio_desap"],
+    "Métrica": ["Shannon", "Shannon", "Gini"],
+    "Valor": [
+        entropia_shannon(df_reducido["entidad_desap"]),
+        entropia_shannon(df_reducido["estatus_busqueda"]),
+        indice_gini(df_reducido["anio_desap"])
+    ]
+})
+heterogeneidad
+```
+---
+
+### Correlación
+
+```{python}
+# Obtenemos el Top 20 de entidades con más casos (excluyendo 'SE DESCONOCE')
+top_estados = df_reducido[df_reducido['entidad_desap'] != 'SE DESCONOCE']['entidad_desap'].value_counts().head(20).index
+# Filtramos el dataset para quedarnos solo con los registros de esos 10 estados
+df_top20 = df_reducido[df_reducido['entidad_desap'].isin(top_estados)]
+tabla_frecuencias_anuales = pd.crosstab(df_top20['anio_desap'], df_top20['entidad_desap'])
+matriz_correlacion = tabla_frecuencias_anuales.corr(method='pearson')
+display(tabla_frecuencias_anuales.tail(15))
+```
+
+---
+
+```{python}
+display(matriz_correlacion.tail(15))
+```
+
+---
+
+#### Heatmap de Desapariciones (Top 20)
+
+```{python}
+import seaborn as sns
+
+plt.figure(figsize=(10, 8))
+
+# Generamos el heatmap usando seaborn
+sns.heatmap(
+    matriz_correlacion,
+    annot=True,         # Muestra los números dentro de los cuadros
+    cmap='coolwarm',    # Mapa de colores: Rojo para correlación positiva, azul para negativa
+    vmin=-1, vmax=1,    # Rango matemático de Pearson
+    fmt=".2f",          # Mostrar solo dos decimales
+    linewidths=0.5      # Líneas blancas separando los cuadros
+)
+
+plt.title('Matriz de Correlación (Heatmap) de Desapariciones: Top 20 Entidades', fontsize=14)
+plt.xlabel('Entidad')
+plt.ylabel('Entidad')
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+plt.show()
+```
+---
+
+### Estado Final del Dataset
+
+```{python}
+faltantes = df_reducido.isnull().sum()
+porcentaje = (faltantes / len(df)) * 100
+
+faltantes_df = pd.DataFrame({
+    "faltantes": faltantes,
+    "porcentaje": porcentaje
+}).sort_values(by="porcentaje", ascending=False)
+
+duplicados = df_reducido.duplicated().sum()
+print(faltantes_df, "\nNúmero de duplicados:", duplicados)
+```
+
+---
+
+## Averiguaciones Relevantes (Continuación)
+
+- El fenómeno de las desapariciones está altamente concentrado en pocas entidades. Aunque el promedio nacional por
+estado es de ~2,700 casos, Tamaulipas (11,786) y Estado de México (10,935) lo superan ampliamente.
+- 2007 presenta el pico histórico de desapariciones con 10,410 casos, lo que estadísticamente es un outlier masivo
+frente a años previos. Este valor refleja un periodo de alta inseguridad en el país.
+- Aunque 2007 tiene el máximo absoluto de casos, la mediana temporal de desapariciones se ubica en 2016. Dado que
+los datos van de 1967 a 2023, esto implica que el 50 % de las desapariciones ocurrió solo en el periodo 2016–2023.
+- La columna estatus_busqueda tiene 27,364 valores nulos. Se sugiere que no son faltantes aleatorios (MCAR), sino MNAR,
+probablemente asociados a limitaciones de recursos o capacidad institucional para dar seguimiento.
+
+---
+
+## Averiguaciones Relevantes (Continuación)
+
+- Destacan fuertes correlaciones positivas en el Noreste (Nuevo León–Tamaulipas, r = 0.87) y en el Pacífico
+(Colima–Nayarit, r = 0.87), indicando oleadas simultáneas de desapariciones.
+- La categoría "Con indicios / Ubicada" suma solo 12,563 registros en estatus_busqueda. En cambio, "Se busca reportante"
+(22,704) y "Se requieren datos de identidad" (18,362) dominan la distribución, evidenciando que la mayoría de los casos
+no avanzan por falta de información o abandono.
+- No se observan muchos homónimos pese al tamaño del dataset. La variabilidad de datos entre registros con el mismo nombre
+ayuda a distinguir personas únicas que podrían haber pasado desapercibidas.
+- Aunque el indicador de Tabasco es relevante, Estado de México y Sinaloa muestran la mayor correlación en el número de
+desaparecidos a lo largo del tiempo. Esto podría sugerir una conexión problemática entre ambas entidades, como operaciones
+ilegales compartidas.

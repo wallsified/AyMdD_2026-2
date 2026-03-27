@@ -1,185 +1,155 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<script src="presentation_files/libs/clipboard/clipboard.min.js"></script>
-<script src="presentation_files/libs/quarto-html/tabby.min.js"></script>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.35">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Méndez Ávila Luis Geovanni">
+<meta name="author" content="Sánchez Rosas Roberto Samuel">
+<meta name="author" content="Domínguez Sánchez Gustavo Alonso">
+<meta name="author" content="Paredes Zamudio Luis Daniel">
+
+<title>Tarea #2</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="presentation_files/libs/clipboard/clipboard.min.js"></script>
+<script src="presentation_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="presentation_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="presentation_files/libs/quarto-html/popper.min.js"></script>
 <script src="presentation_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="presentation_files/libs/quarto-html/anchor.min.js"></script>
 <link href="presentation_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="presentation_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="presentation_files/libs/quarto-html/quarto-syntax-highlighting-dark-22b4aaf4c2978829df3684e8f2c068db.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.35">
+<link href="presentation_files/libs/quarto-html/quarto-syntax-highlighting-46f66b053e56abd73bb6e954d61a315b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="presentation_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="presentation_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="presentation_files/libs/bootstrap/bootstrap-138a6193a3bd40baf1e627da441a4734.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
-  <meta name="author" content="Méndez Ávila Luis Geovanni">
-  <meta name="author" content="Sánchez Rosas Roberto Samuel">
-  <meta name="author" content="Domínguez Sánchez Gustavo Alonso">
-  <meta name="author" content="Paredes Zamudio Luis Daniel">
-  <title>Tarea #2</title>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/reveal.css">
-  <style>
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
-      vertical-align: middle;
-    }
-  </style>
-  <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/theme/quarto-422092a5e00d6ffa3175d97bbb8f7ab9.css">
-  <link rel="stylesheet" href="styles.css">
-  <link href="presentation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="presentation_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="presentation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="presentation_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
-  <style type="text/css">
-    .reveal div.sourceCode {
-      margin: 0;
-      overflow: auto;
-    }
-    .reveal div.hanging-indent {
-      margin-left: 1em;
-      text-indent: -1em;
-    }
-    .reveal .slide:not(.center) {
-      height: 100%;
-      overflow-y: auto;
-    }
-    .reveal .slide.scrollable {
-      overflow-y: auto;
-    }
-    .reveal .footnotes {
-      height: 100%;
-      overflow-y: auto;
-    }
-    .reveal .slide .absolute {
-      position: absolute;
-      display: block;
-    }
-    .reveal .footnotes ol {
-      counter-reset: ol;
-      list-style-type: none;
-      margin-left: 0;
-    }
-    .reveal .footnotes ol li:before {
-      counter-increment: ol;
-      content: counter(ol) ". ";
-    }
-    .reveal .footnotes ol li > p:first-child {
-      display: inline-block;
-    }
-    .reveal .slide ul,
-    .reveal .slide ol {
-      margin-bottom: 0.5em;
-    }
-    .reveal .slide ul li,
-    .reveal .slide ol li {
-      margin-top: 0.4em;
-      margin-bottom: 0.2em;
-    }
-    .reveal .slide ul[role="tablist"] li {
-      margin-bottom: 0;
-    }
-    .reveal .slide ul li > *:first-child,
-    .reveal .slide ol li > *:first-child {
-      margin-block-start: 0;
-    }
-    .reveal .slide ul li > *:last-child,
-    .reveal .slide ol li > *:last-child {
-      margin-block-end: 0;
-    }
-    .reveal .slide .columns:nth-child(3) {
-      margin-block-start: 0.8em;
-    }
-    .reveal blockquote {
-      box-shadow: none;
-    }
-    .reveal .tippy-content>* {
-      margin-top: 0.2em;
-      margin-bottom: 0.7em;
-    }
-    .reveal .tippy-content>*:last-child {
-      margin-bottom: 0.2em;
-    }
-    .reveal .slide > img.stretch.quarto-figure-center,
-    .reveal .slide > img.r-stretch.quarto-figure-center {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .reveal .slide > img.stretch.quarto-figure-left,
-    .reveal .slide > img.r-stretch.quarto-figure-left  {
-      display: block;
-      margin-left: 0;
-      margin-right: auto;
-    }
-    .reveal .slide > img.stretch.quarto-figure-right,
-    .reveal .slide > img.r-stretch.quarto-figure-right  {
-      display: block;
-      margin-left: auto;
-      margin-right: 0;
-    }
-  </style>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
 </head>
-<body class="quarto-dark">
-  <div class="reveal">
-    <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Tarea #2</h1>
-  <p class="subtitle">EDA, Personas Desaparecidas en México</p>
+<body class="quarto-light">
 
-<div class="quarto-title-authors">
-<div class="quarto-title-author">
-<div class="quarto-title-author-name">
-Méndez Ávila Luis Geovanni
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="presentation.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Tarea #2</h1>
+<p class="subtitle lead">EDA, Personas Desaparecidas en México</p>
 </div>
-        <p class="quarto-title-affiliation">
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliations</div>
+
+    <div class="quarto-title-meta-contents">
+    <p class="author">Méndez Ávila Luis Geovanni </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
             317143980
           </p>
-    </div>
-<div class="quarto-title-author">
-<div class="quarto-title-author-name">
-Sánchez Rosas Roberto Samuel
-</div>
-        <p class="quarto-title-affiliation">
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Sánchez Rosas Roberto Samuel </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
             318355159
           </p>
-    </div>
-<div class="quarto-title-author">
-<div class="quarto-title-author-name">
-Domínguez Sánchez Gustavo Alonso
-</div>
-        <p class="quarto-title-affiliation">
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Domínguez Sánchez Gustavo Alonso </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
             418047121
           </p>
-    </div>
-<div class="quarto-title-author">
-<div class="quarto-title-author-name">
-Paredes Zamudio Luis Daniel
-</div>
-        <p class="quarto-title-affiliation">
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Paredes Zamudio Luis Daniel </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
             318159926
           </p>
-    </div>
-</div>
+      </div>
+  </div>
 
-</section>
-<section id="contexto-del-dataset" class="slide level2 center">
-<h2>Contexto del Dataset</h2>
-</section>
-<section id="diccionario-de-datos" class="slide level2 center">
-<h2>Diccionario de Datos</h2>
-<table class="caption-top" style="width:99%;">
+<div class="quarto-title-meta">
+
+
+
+
+  </div>
+
+
+
+</header>
+
+
+<section id="diccionario-de-datos" class="level3">
+<h3 class="anchored" data-anchor-id="diccionario-de-datos">Diccionario de Datos</h3>
+<table class="caption-top table">
 <colgroup>
 <col style="width: 11%">
 <col style="width: 11%">
@@ -284,10 +254,11 @@ Paredes Zamudio Luis Daniel
 </tr>
 </tbody>
 </table>
+<hr>
 </section>
-<section id="diccionario-de-datos-continuación" class="slide level2 center">
-<h2>Diccionario de Datos (Continuación)</h2>
-<table class="caption-top" style="width:99%;">
+<section id="diccionario-de-datos-continuación" class="level3">
+<h3 class="anchored" data-anchor-id="diccionario-de-datos-continuación">Diccionario de Datos (Continuación)</h3>
+<table class="caption-top table">
 <colgroup>
 <col style="width: 11%">
 <col style="width: 11%">
@@ -381,420 +352,1779 @@ Paredes Zamudio Luis Daniel
 </tr>
 </tbody>
 </table>
+<hr>
 </section>
-<section id="prolemáticas-a-resolver" class="slide level2 center scrollable">
-<h2>Prolemáticas a Resolver</h2>
+<section id="prolemáticas-a-resolver" class="level2">
+<h2 class="anchored" data-anchor-id="prolemáticas-a-resolver">Prolemáticas a Resolver</h2>
 <ol type="1">
 <li>¿Cuáles son las <span class="kw">entidades con mayor incidencia</span> de desapariciones?</li>
 <li>¿Cuál es la tendencia de desapariciones a lo largo del tiempo? ¿<span class="kw">Aumentan o disminuyen</span> los desaparecidos?</li>
 <li>¿Qué proporción de casos está <span class="kw">activo vs.&nbsp;resuelto</span>?</li>
 <li>¿Cuál es la <span class="kw">tasa de resolución por entidad</span>? ¿Hay entidades más efectivas que otras?</li>
 </ol>
+<hr>
 </section>
-<section id="criterios-de-éxito" class="slide level2 center">
-<h2>Criterios de Éxito</h2>
+<section id="criterios-de-éxito" class="level2">
+<h2 class="anchored" data-anchor-id="criterios-de-éxito">Criterios de Éxito</h2>
 <ul>
 <li>Se deben de <span class="ok">identificar</span> de forma clara las <span class="ok">tendencias temporales y globales</span> en el dataset.</li>
 <li>Es de gran importancia <span class="ok">detectar zonas críticas</span> para conocer donde se deben aplicar más esfuerzos en resolver estos casos.</li>
 <li>Al ser un dataset con muchas inconsistencias, debemos llegar a los <span class="ok">resultados más interpretables posibles</span>.</li>
 </ul>
-</section>
-<section id="ejemplo-de-texto-con-clases-personalizadas" class="slide level2 center">
-<h2>Ejemplo de texto con clases personalizadas</h2>
-<p>En este análisis, el hallazgo <span class="kw">clave</span> es que existe una concentración temporal en ciertos periodos.</p>
-<p>También hay un <span class="detail">detalle importante</span> al segmentar por entidad federativa.</p>
-<p>La calidad de los datos fue <span class="ok">adecuada</span> para generar visualizaciones confiables.</p>
-<p><span class="muted">Nota: este texto usa la clase <code>muted</code> para información secundaria.</span></p>
-</section>
-<section class="slide level2 center">
+<hr>
+<section id="primera-exploración-del-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="primera-exploración-del-dataset">Primera Exploración del Dataset</h3>
+<div id="f79ae564" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>dataset_path <span class="op">=</span> <span class="st">"../dataset/tot_reg_desap.csv"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(dataset_path)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total de Filas: </span><span class="sc">{</span>df<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total de Columnas: </span><span class="sc">{</span>df<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.columns.to_list()) </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>df_ord_fechas <span class="op">=</span> df.sort_values(by<span class="op">=</span><span class="st">"fecha_desap"</span>).dropna()</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>primero_y_ultimo <span class="op">=</span> df_ord_fechas.iloc[[<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>]]</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Primera Fecha y última fecha:"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(primero_y_ultimo[<span class="st">"fecha_desap"</span>])</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total de Filas: 89720
+Total de Columnas: 13
+['Unnamed: 0', 'nombrecompleto', 'rnpdno_json', 'entidad_desap', 'pre_rnped', 'rnped', 'rnpdno_csv', 'bg_1', 'estatus_busqueda', 'bg_2', 'fub', 'DC_id', 'fecha_desap']
 
-<p>Texto con <code>inline code</code>: <code>df.groupby("entidad").size()</code> y una palabra <span class="kw">clave</span> en la misma línea.</p>
-
-</section>
-    </div>
-  <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="imagenes/logos_unam.png" class="slide-logo"></p>
-<div class="footer footer-default">
-<p>Almacenes y Minería de Datos (26-2)</p>
+Primera Fecha y última fecha:
+82335    01/01/1967
+10573    31/12/2022
+Name: fecha_desap, dtype: str</code></pre>
 </div>
-</div></div>
-
-  <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="presentation_files/libs/revealjs/dist/reveal.js"></script>
-  <!-- reveal.js plugins -->
-  <script src="presentation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="presentation_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="presentation_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="presentation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="presentation_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+<div class="cell-output cell-output-display" data-execution_count="40">
+<div>
 
 
-  <script src="presentation_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="presentation_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="presentation_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="presentation_files/libs/revealjs/plugin/math/math.js"></script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Unnamed: 0</th>
+<th data-quarto-table-cell-role="th">nombrecompleto</th>
+<th data-quarto-table-cell-role="th">rnpdno_json</th>
+<th data-quarto-table-cell-role="th">entidad_desap</th>
+<th data-quarto-table-cell-role="th">pre_rnped</th>
+<th data-quarto-table-cell-role="th">rnped</th>
+<th data-quarto-table-cell-role="th">rnpdno_csv</th>
+<th data-quarto-table-cell-role="th">bg_1</th>
+<th data-quarto-table-cell-role="th">estatus_busqueda</th>
+<th data-quarto-table-cell-role="th">bg_2</th>
+<th data-quarto-table-cell-role="th">fub</th>
+<th data-quarto-table-cell-role="th">DC_id</th>
+<th data-quarto-table-cell-role="th">fecha_desap</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>1</td>
+<td>LUIS ADRIAN JUAREZ MORALES</td>
+<td>1</td>
+<td>QUERETARO</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>NaN</td>
+<td>0</td>
+<td>NaN</td>
+<td>101 (json), 5673 (csv)</td>
+<td>19/04/2023</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>2</td>
+<td>ERNESTO ALONSO HERNANDEZ GUTIERREZ</td>
+<td>1</td>
+<td>QUERETARO</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>Con indicios / Ubicada</td>
+<td>1</td>
+<td>187731B1B-3302-4BE3-81D5-018CFB86A00B</td>
+<td>349 (json), 448 (csv), 187731B1B-3302-4BE3-81D...</td>
+<td>12/07/2016</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>3</td>
+<td>PIEDAD JESUS GUERRERO CHAVEZ</td>
+<td>1</td>
+<td>QUERETARO</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>Se busca reportante</td>
+<td>1</td>
+<td>122009919-199C-4B90-8462-935A6EDCE439</td>
+<td>732 (json), 14618 (csv), 122009919-199C-4B90-8...</td>
+<td>26/09/2017</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>4</td>
+<td>LORENZO MARTINEZ</td>
+<td>1</td>
+<td>QUERETARO</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>Se requieren datos de identidad</td>
+<td>1</td>
+<td>148436E49-364B-4663-847C-0338E23B2460</td>
+<td>1007 (json), 89640 (csv), 148436E49-364B-4663-...</td>
+<td>17/03/2010</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>5</td>
+<td>AGUSTINA OLVERA OCHOA</td>
+<td>1</td>
+<td>QUERETARO</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>NaN</td>
+<td>0</td>
+<td>NaN</td>
+<td>1013 (json), 57259 (csv)</td>
+<td>04/06/2023</td>
+</tr>
+</tbody>
+</table>
 
-  <script>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="reducción-de-dimensionalidad" class="level3">
+<h3 class="anchored" data-anchor-id="reducción-de-dimensionalidad">Reducción de Dimensionalidad</h3>
+<div id="797b4f2b" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nuevo dataset con columnas clave</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(dataset_path)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df_reducido <span class="op">=</span> df[[<span class="st">"nombrecompleto"</span>, <span class="st">"entidad_desap"</span>, <span class="st">"estatus_busqueda"</span>, <span class="st">"fecha_desap"</span>]]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertir fecha</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>df_reducido[<span class="st">"fecha_desap"</span>] <span class="op">=</span> df_reducido[<span class="st">"fecha_desap"</span>].<span class="bu">str</span>.split(<span class="st">","</span>).<span class="bu">str</span>[<span class="dv">0</span>]</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>df_reducido[<span class="st">"fecha_desap"</span>] <span class="op">=</span> pd.to_datetime(df_reducido[<span class="st">"fecha_desap"</span>], dayfirst<span class="op">=</span><span class="va">True</span>, errors<span class="op">=</span><span class="st">"coerce"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>df_reducido[<span class="st">"anio_desap"</span>] <span class="op">=</span> df_reducido[<span class="st">"fecha_desap"</span>].dt.year</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>duplicados <span class="op">=</span> df_reducido[df_reducido.duplicated()]</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Eliminar aquellos duplicados que tengan los 4 campos iguales (nombre, entidad, estatus, fecha)</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>df_reducido <span class="op">=</span> df_reducido.drop_duplicates(subset<span class="op">=</span>[</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'nombrecompleto'</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'entidad_desap'</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">'estatus_busqueda'</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'fecha_desap'</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>duplicados <span class="op">=</span> df_reducido[df_reducido.duplicated()]</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Dataset reducido tras pre-procesamiento: </span><span class="ch">\n\n</span><span class="st">"</span>, df_reducido)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n\n</span><span class="st"> Revisamos limpieza de duplicados correcta mostrando el dataframe de 'duplicados' vacío: </span><span class="ch">\n\n</span><span class="st">"</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(duplicados)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Dataset reducido tras pre-procesamiento:
 
-      // Full list of configuration options available at:
-      // https://revealjs.com/config/
-      Reveal.initialize({
-'controlsAuto': true,
-'previewLinksAuto': true,
-'pdfSeparateFragments': false,
-'autoAnimateEasing': "ease",
-'autoAnimateDuration': 1,
-'autoAnimateUnmatched': true,
-'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'smaller': false,
+                            nombrecompleto entidad_desap  \
+0              LUIS ADRIAN JUAREZ MORALES     QUERETARO
+1      ERNESTO ALONSO HERNANDEZ GUTIERREZ     QUERETARO
+2            PIEDAD JESUS GUERRERO CHAVEZ     QUERETARO
+3                        LORENZO MARTINEZ     QUERETARO
+4                   AGUSTINA OLVERA OCHOA     QUERETARO
+...                                   ...           ...
+89715                   ABEL DIYARZA MEZA      TLAXCALA
+89716             PERLA SANCHEZ VELAZQUEZ      TLAXCALA
+89717           ARACELI SIMBRON HERNANDEZ      TLAXCALA
+89718                 KARLA ROMERO TEZMOL      TLAXCALA
+89719            ALEJANDRO REYES MARTINEZ      TLAXCALA
 
-        // Display controls in the bottom right corner
-        controls: false,
+                      estatus_busqueda fecha_desap  anio_desap
+0                                  NaN  2023-04-19      2023.0
+1               Con indicios / Ubicada  2016-07-12      2016.0
+2                  Se busca reportante  2017-09-26      2017.0
+3      Se requieren datos de identidad  2010-03-17      2010.0
+4                                  NaN  2023-06-04      2023.0
+...                                ...         ...         ...
+89715           Con indicios / Ubicada  2014-09-02      2014.0
+89716                              NaN  2017-01-15      2017.0
+89717                              NaN  2013-09-19      2013.0
+89718           Con indicios / Ubicada  2016-01-13      2016.0
+89719  Se requieren datos de identidad  2011-12-26      2011.0
 
-        // Help the user learn the controls by providing hints, for example by
-        // bouncing the down arrow when they first encounter a vertical slide
-        controlsTutorial: true,
+[89132 rows x 5 columns]
 
-        // Determines where controls appear, "edges" or "bottom-right"
-        controlsLayout: 'bottom-right',
 
-        // Visibility rule for backwards navigation arrows; "faded", "hidden"
-        // or "visible"
-        controlsBackArrows: 'faded',
+ Revisamos limpieza de duplicados correcta mostrando el dataframe de 'duplicados' vacío:
 
-        // Display a presentation progress bar
-        progress: true,
 
-        // Display the page number of the current slide
-        slideNumber: 'c/t',
+Empty DataFrame
+Columns: [nombrecompleto, entidad_desap, estatus_busqueda, fecha_desap, anio_desap]
+Index: []</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="análisis-de-frecuencias" class="level3">
+<h3 class="anchored" data-anchor-id="análisis-de-frecuencias">Análisis de Frecuencias</h3>
+<div id="4537405c" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>frecuencias_entidad <span class="op">=</span> df_reducido[<span class="st">'entidad_desap'</span>].value_counts()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>frecuencias_anio <span class="op">=</span> df_reducido[<span class="st">'anio_desap'</span>].value_counts().sort_index()</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>frecuencias_estatus <span class="op">=</span> df_reducido[<span class="st">'estatus_busqueda'</span>].value_counts()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>media_entidades <span class="op">=</span> frecuencias_entidad.mean()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"La media de desapariciones por entidad es: "</span> <span class="op">+</span> <span class="bu">str</span>(media_entidades))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>media_anual <span class="op">=</span> frecuencias_anio.mean()</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"La media de desapariciones por anio es: "</span> <span class="op">+</span> <span class="bu">str</span>(media_anual))</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>mediana_anio <span class="op">=</span> df_reducido[<span class="st">'anio_desap'</span>].median()</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"La mediana de los anios del dataset es: "</span> <span class="op">+</span> <span class="bu">str</span>(mediana_anio))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>moda_anio <span class="op">=</span> df_reducido[<span class="st">'anio_desap'</span>].mode()</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"La moda de los anios del dataset es: "</span> <span class="op">+</span> <span class="bu">str</span>(moda_anio))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>moda_estado <span class="op">=</span> df_reducido[<span class="st">'entidad_desap'</span>].mode()</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"La moda de los estados del dataset es: "</span> <span class="op">+</span> <span class="bu">str</span>(moda_estado))</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>moda_estatus <span class="op">=</span> df_reducido[<span class="st">'estatus_busqueda'</span>].mode()</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"La moda de los estados de busqueda del dataset es: "</span> <span class="op">+</span> <span class="bu">str</span>(moda_estatus))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>La media de desapariciones por entidad es: 2700.969696969697
+La media de desapariciones por anio es: 1417.5689655172414
+La mediana de los anios del dataset es: 2016.0
+La moda de los anios del dataset es: 0    2007.0
+Name: anio_desap, dtype: float64
+La moda de los estados del dataset es: 0    TAMAULIPAS
+Name: entidad_desap, dtype: str
+La moda de los estados de busqueda del dataset es: 0    Se busca reportante
+Name: estatus_busqueda, dtype: str</code></pre>
+</div>
+</div>
+<hr>
+<div id="1242be24" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grafica por Estado</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>frecuencias_entidad.plot(kind<span class="op">=</span><span class="st">'bar'</span>)  </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Concentración de Desapariciones por Estado'</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Estado'</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Casos'</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>plt.locator_params(axis<span class="op">=</span><span class="st">'y'</span>, nbins<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="presentation_files/figure-html/cell-5-output-1.png" width="1142" height="567" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<div id="574e4ead" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">6</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>frecuencias_anio.plot(kind<span class="op">=</span><span class="st">'bar'</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Desapariciones por año'</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Año'</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Casos'</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>plt.locator_params(axis<span class="op">=</span><span class="st">'y'</span>, nbins<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="presentation_files/figure-html/cell-6-output-1.png" width="1430" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="medidas-de-variabilidad" class="level3">
+<h3 class="anchored" data-anchor-id="medidas-de-variabilidad">Medidas de Variabilidad</h3>
+<div id="82c548cc" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>resumen_varianzas_anio <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"media"</span>: [df_reducido[<span class="st">"anio_desap"</span>].mean()],</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"varianza"</span>: [df_reducido[<span class="st">"anio_desap"</span>].var()],</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"desv_std"</span>: [df_reducido[<span class="st">"anio_desap"</span>].std()],</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"min"</span>: [df_reducido[<span class="st">"anio_desap"</span>].<span class="bu">min</span>()],</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"q1"</span>: [df_reducido[<span class="st">"anio_desap"</span>].quantile(<span class="fl">0.25</span>)],</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"mediana"</span>: [df_reducido[<span class="st">"anio_desap"</span>].median()],</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"q3"</span>: [df_reducido[<span class="st">"anio_desap"</span>].quantile(<span class="fl">0.75</span>)],</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"max"</span>: [df_reducido[<span class="st">"anio_desap"</span>].<span class="bu">max</span>()],</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>resumen_varianzas_anio[<span class="st">"rango"</span>] <span class="op">=</span> resumen_varianzas_anio[<span class="st">"max"</span>] <span class="op">-</span> resumen_varianzas_anio[<span class="st">"min"</span>]</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>resumen_varianzas_anio[<span class="st">"IQR"</span>] <span class="op">=</span> resumen_varianzas_anio[<span class="st">"q3"</span>] <span class="op">-</span> resumen_varianzas_anio[<span class="st">"q1"</span>]</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>resumen_varianzas_anio[<span class="st">"CV"</span>] <span class="op">=</span> resumen_varianzas_anio[<span class="st">"desv_std"</span>] <span class="op">/</span> resumen_varianzas_anio[<span class="st">"media"</span>]</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>resumen_varianzas_anio</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="45">
+<div>
 
-        // 'all', 'print', or 'speaker'
-        showSlideNumber: 'all',
 
-        // Add the current slide number to the URL hash so that reloading the
-        // page/copying the URL will return you to the same slide
-        hash: true,
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">media</th>
+<th data-quarto-table-cell-role="th">varianza</th>
+<th data-quarto-table-cell-role="th">desv_std</th>
+<th data-quarto-table-cell-role="th">min</th>
+<th data-quarto-table-cell-role="th">q1</th>
+<th data-quarto-table-cell-role="th">mediana</th>
+<th data-quarto-table-cell-role="th">q3</th>
+<th data-quarto-table-cell-role="th">max</th>
+<th data-quarto-table-cell-role="th">rango</th>
+<th data-quarto-table-cell-role="th">IQR</th>
+<th data-quarto-table-cell-role="th">CV</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>2014.516681</td>
+<td>43.036292</td>
+<td>6.560205</td>
+<td>1964.0</td>
+<td>2011.0</td>
+<td>2016.0</td>
+<td>2019.0</td>
+<td>2023.0</td>
+<td>59.0</td>
+<td>8.0</td>
+<td>0.003256</td>
+</tr>
+</tbody>
+</table>
 
-        // Start with 1 for the hash rather than 0
-        hashOneBasedIndex: false,
+</div>
+</div>
+</div>
+<hr>
+<div id="ddc9a254" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df_reducido[<span class="st">"dias_desde_inicio"</span>] <span class="op">=</span> (df_reducido[<span class="st">"fecha_desap"</span>] <span class="op">-</span> df_reducido[<span class="st">"fecha_desap"</span>].<span class="bu">min</span>()).dt.days</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot de Año de Desaparición</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>df_reducido[<span class="st">"anio_desap"</span>].dropna().plot(kind<span class="op">=</span><span class="st">"box"</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Variabilidad de Desapariciones por Año"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Año"</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>plt.locator_params(axis<span class="op">=</span><span class="st">'y'</span>, nbins<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="presentation_files/figure-html/cell-8-output-1.png" width="1142" height="567" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<div id="dc821b23" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot de Dias desde la Desparación</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>df_reducido[<span class="st">"dias_desde_inicio"</span>].dropna().plot(kind<span class="op">=</span><span class="st">"box"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Variabilidad en días desde la primera desaparición registrada"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Días"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>plt.locator_params(axis<span class="op">=</span><span class="st">'y'</span>, nbins<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="presentation_files/figure-html/cell-9-output-1.png" width="1142" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="medidas-de-heterogeneidad" class="level3">
+<h3 class="anchored" data-anchor-id="medidas-de-heterogeneidad">Medidas de Heterogeneidad</h3>
+<div id="94198d17" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> entropia_shannon(serie):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> serie.value_counts(normalize<span class="op">=</span><span class="va">True</span>, dropna<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>np.<span class="bu">sum</span>(p <span class="op">*</span> np.log(p))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> indice_gini(array):</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    array <span class="op">=</span> array.dropna().values</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(array) <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.nan</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    array <span class="op">=</span> np.sort(array)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(array)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (np.<span class="bu">sum</span>((<span class="dv">2</span> <span class="op">*</span> np.arange(<span class="dv">1</span>, n<span class="op">+</span><span class="dv">1</span>) <span class="op">-</span> n <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> array)) <span class="op">/</span> (n <span class="op">*</span> np.<span class="bu">sum</span>(array))</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>heterogeneidad <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Variable"</span>: [<span class="st">"entidad_desap"</span>, <span class="st">"estatus_busqueda"</span>, <span class="st">"anio_desap"</span>],</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Métrica"</span>: [<span class="st">"Shannon"</span>, <span class="st">"Shannon"</span>, <span class="st">"Gini"</span>],</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Valor"</span>: [</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        entropia_shannon(df_reducido[<span class="st">"entidad_desap"</span>]),</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        entropia_shannon(df_reducido[<span class="st">"estatus_busqueda"</span>]),</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        indice_gini(df_reducido[<span class="st">"anio_desap"</span>])</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>heterogeneidad</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="48">
+<div>
 
-        // Flags if we should monitor the hash and change slides accordingly
-        respondToHashChanges: true,
 
-        // Push each slide change to the browser history
-        history: true,
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Variable</th>
+<th data-quarto-table-cell-role="th">Métrica</th>
+<th data-quarto-table-cell-role="th">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>entidad_desap</td>
+<td>Shannon</td>
+<td>3.021391</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>estatus_busqueda</td>
+<td>Shannon</td>
+<td>1.323578</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>anio_desap</td>
+<td>Gini</td>
+<td>0.001617</td>
+</tr>
+</tbody>
+</table>
 
-        // Enable keyboard shortcuts for navigation
-        keyboard: true,
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="correlación" class="level3">
+<h3 class="anchored" data-anchor-id="correlación">Correlación</h3>
+<div id="c50878a4" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtenemos el Top 20 de entidades con más casos (excluyendo 'SE DESCONOCE')</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>top_estados <span class="op">=</span> df_reducido[df_reducido[<span class="st">'entidad_desap'</span>] <span class="op">!=</span> <span class="st">'SE DESCONOCE'</span>][<span class="st">'entidad_desap'</span>].value_counts().head(<span class="dv">20</span>).index</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtramos el dataset para quedarnos solo con los registros de esos 10 estados</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>df_top20 <span class="op">=</span> df_reducido[df_reducido[<span class="st">'entidad_desap'</span>].isin(top_estados)]</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>tabla_frecuencias_anuales <span class="op">=</span> pd.crosstab(df_top20[<span class="st">'anio_desap'</span>], df_top20[<span class="st">'entidad_desap'</span>])</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>matriz_correlacion <span class="op">=</span> tabla_frecuencias_anuales.corr(method<span class="op">=</span><span class="st">'pearson'</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>display(tabla_frecuencias_anuales.tail(<span class="dv">15</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
 
-        // Enable the slide overview mode
-        overview: true,
 
-        // Disables the default reveal.js slide layout (scaling and centering)
-        // so that you can use custom CSS layout
-        disableLayout: false,
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">entidad_desap</th>
+<th data-quarto-table-cell-role="th">BAJA CALIFORNIA</th>
+<th data-quarto-table-cell-role="th">CHIAPAS</th>
+<th data-quarto-table-cell-role="th">CHIHUAHUA</th>
+<th data-quarto-table-cell-role="th">CIUDAD DE MEXICO</th>
+<th data-quarto-table-cell-role="th">COAHUILA</th>
+<th data-quarto-table-cell-role="th">COLIMA</th>
+<th data-quarto-table-cell-role="th">ESTADO DE MEXICO</th>
+<th data-quarto-table-cell-role="th">GUANAJUATO</th>
+<th data-quarto-table-cell-role="th">GUERRERO</th>
+<th data-quarto-table-cell-role="th">JALISCO</th>
+<th data-quarto-table-cell-role="th">MICHOACAN</th>
+<th data-quarto-table-cell-role="th">MORELOS</th>
+<th data-quarto-table-cell-role="th">NAYARIT</th>
+<th data-quarto-table-cell-role="th">NUEVO LEON</th>
+<th data-quarto-table-cell-role="th">PUEBLA</th>
+<th data-quarto-table-cell-role="th">SINALOA</th>
+<th data-quarto-table-cell-role="th">SONORA</th>
+<th data-quarto-table-cell-role="th">TAMAULIPAS</th>
+<th data-quarto-table-cell-role="th">VERACRUZ</th>
+<th data-quarto-table-cell-role="th">ZACATECAS</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">anio_desap</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2009.0</th>
+<td>14</td>
+<td>2</td>
+<td>174</td>
+<td>95</td>
+<td>320</td>
+<td>1</td>
+<td>135</td>
+<td>20</td>
+<td>27</td>
+<td>93</td>
+<td>75</td>
+<td>5</td>
+<td>6</td>
+<td>146</td>
+<td>2</td>
+<td>52</td>
+<td>49</td>
+<td>219</td>
+<td>37</td>
+<td>39</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2010.0</th>
+<td>13</td>
+<td>5</td>
+<td>227</td>
+<td>42</td>
+<td>474</td>
+<td>18</td>
+<td>130</td>
+<td>24</td>
+<td>73</td>
+<td>153</td>
+<td>102</td>
+<td>17</td>
+<td>5</td>
+<td>708</td>
+<td>1</td>
+<td>211</td>
+<td>71</td>
+<td>1130</td>
+<td>125</td>
+<td>83</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2011.0</th>
+<td>18</td>
+<td>0</td>
+<td>250</td>
+<td>251</td>
+<td>500</td>
+<td>21</td>
+<td>195</td>
+<td>56</td>
+<td>111</td>
+<td>302</td>
+<td>141</td>
+<td>10</td>
+<td>7</td>
+<td>679</td>
+<td>6</td>
+<td>221</td>
+<td>61</td>
+<td>1430</td>
+<td>379</td>
+<td>89</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2012.0</th>
+<td>90</td>
+<td>5</td>
+<td>242</td>
+<td>96</td>
+<td>313</td>
+<td>36</td>
+<td>235</td>
+<td>26</td>
+<td>123</td>
+<td>314</td>
+<td>195</td>
+<td>11</td>
+<td>4</td>
+<td>243</td>
+<td>2</td>
+<td>211</td>
+<td>117</td>
+<td>1294</td>
+<td>239</td>
+<td>49</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2013.0</th>
+<td>135</td>
+<td>2</td>
+<td>228</td>
+<td>88</td>
+<td>238</td>
+<td>42</td>
+<td>311</td>
+<td>29</td>
+<td>283</td>
+<td>557</td>
+<td>304</td>
+<td>41</td>
+<td>10</td>
+<td>135</td>
+<td>4</td>
+<td>302</td>
+<td>165</td>
+<td>865</td>
+<td>412</td>
+<td>71</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2014.0</th>
+<td>182</td>
+<td>2</td>
+<td>243</td>
+<td>66</td>
+<td>160</td>
+<td>50</td>
+<td>296</td>
+<td>48</td>
+<td>346</td>
+<td>465</td>
+<td>221</td>
+<td>26</td>
+<td>6</td>
+<td>117</td>
+<td>6</td>
+<td>263</td>
+<td>272</td>
+<td>919</td>
+<td>536</td>
+<td>66</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2015.0</th>
+<td>10</td>
+<td>2</td>
+<td>231</td>
+<td>76</td>
+<td>82</td>
+<td>11</td>
+<td>347</td>
+<td>88</td>
+<td>230</td>
+<td>395</td>
+<td>215</td>
+<td>66</td>
+<td>4</td>
+<td>204</td>
+<td>7</td>
+<td>355</td>
+<td>298</td>
+<td>437</td>
+<td>490</td>
+<td>78</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2016.0</th>
+<td>182</td>
+<td>4</td>
+<td>268</td>
+<td>42</td>
+<td>70</td>
+<td>63</td>
+<td>641</td>
+<td>120</td>
+<td>299</td>
+<td>470</td>
+<td>244</td>
+<td>128</td>
+<td>14</td>
+<td>242</td>
+<td>18</td>
+<td>388</td>
+<td>321</td>
+<td>902</td>
+<td>561</td>
+<td>93</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2017.0</th>
+<td>223</td>
+<td>6</td>
+<td>346</td>
+<td>49</td>
+<td>59</td>
+<td>214</td>
+<td>785</td>
+<td>208</td>
+<td>345</td>
+<td>598</td>
+<td>291</td>
+<td>104</td>
+<td>107</td>
+<td>253</td>
+<td>19</td>
+<td>464</td>
+<td>638</td>
+<td>1156</td>
+<td>324</td>
+<td>131</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2018.0</th>
+<td>17</td>
+<td>6</td>
+<td>340</td>
+<td>79</td>
+<td>45</td>
+<td>148</td>
+<td>898</td>
+<td>270</td>
+<td>271</td>
+<td>72</td>
+<td>340</td>
+<td>64</td>
+<td>141</td>
+<td>505</td>
+<td>18</td>
+<td>398</td>
+<td>435</td>
+<td>898</td>
+<td>438</td>
+<td>125</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2019.0</th>
+<td>26</td>
+<td>60</td>
+<td>314</td>
+<td>806</td>
+<td>68</td>
+<td>28</td>
+<td>610</td>
+<td>332</td>
+<td>240</td>
+<td>53</td>
+<td>773</td>
+<td>28</td>
+<td>9</td>
+<td>489</td>
+<td>23</td>
+<td>372</td>
+<td>582</td>
+<td>762</td>
+<td>368</td>
+<td>197</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2020.0</th>
+<td>71</td>
+<td>68</td>
+<td>10</td>
+<td>636</td>
+<td>25</td>
+<td>45</td>
+<td>514</td>
+<td>353</td>
+<td>182</td>
+<td>191</td>
+<td>837</td>
+<td>258</td>
+<td>20</td>
+<td>150</td>
+<td>37</td>
+<td>196</td>
+<td>589</td>
+<td>389</td>
+<td>62</td>
+<td>161</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2021.0</th>
+<td>68</td>
+<td>176</td>
+<td>20</td>
+<td>174</td>
+<td>38</td>
+<td>26</td>
+<td>772</td>
+<td>33</td>
+<td>213</td>
+<td>204</td>
+<td>225</td>
+<td>32</td>
+<td>23</td>
+<td>61</td>
+<td>103</td>
+<td>258</td>
+<td>103</td>
+<td>81</td>
+<td>273</td>
+<td>408</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2022.0</th>
+<td>105</td>
+<td>262</td>
+<td>46</td>
+<td>553</td>
+<td>47</td>
+<td>17</td>
+<td>451</td>
+<td>35</td>
+<td>218</td>
+<td>138</td>
+<td>368</td>
+<td>42</td>
+<td>39</td>
+<td>32</td>
+<td>157</td>
+<td>220</td>
+<td>129</td>
+<td>69</td>
+<td>411</td>
+<td>250</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2023.0</th>
+<td>74</td>
+<td>161</td>
+<td>31</td>
+<td>272</td>
+<td>21</td>
+<td>7</td>
+<td>395</td>
+<td>23</td>
+<td>178</td>
+<td>62</td>
+<td>442</td>
+<td>193</td>
+<td>57</td>
+<td>38</td>
+<td>132</td>
+<td>182</td>
+<td>69</td>
+<td>36</td>
+<td>366</td>
+<td>350</td>
+</tr>
+</tbody>
+</table>
 
-        // Vertical centering of slides
-        center: true,
+</div>
+</div>
+</div>
+<hr>
+<div id="106a520e" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>display(matriz_correlacion.tail(<span class="dv">15</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
 
-        // Enables touch navigation on devices with touch input
-        touch: true,
 
-        // Loop the presentation
-        loop: false,
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">entidad_desap</th>
+<th data-quarto-table-cell-role="th">BAJA CALIFORNIA</th>
+<th data-quarto-table-cell-role="th">CHIAPAS</th>
+<th data-quarto-table-cell-role="th">CHIHUAHUA</th>
+<th data-quarto-table-cell-role="th">CIUDAD DE MEXICO</th>
+<th data-quarto-table-cell-role="th">COAHUILA</th>
+<th data-quarto-table-cell-role="th">COLIMA</th>
+<th data-quarto-table-cell-role="th">ESTADO DE MEXICO</th>
+<th data-quarto-table-cell-role="th">GUANAJUATO</th>
+<th data-quarto-table-cell-role="th">GUERRERO</th>
+<th data-quarto-table-cell-role="th">JALISCO</th>
+<th data-quarto-table-cell-role="th">MICHOACAN</th>
+<th data-quarto-table-cell-role="th">MORELOS</th>
+<th data-quarto-table-cell-role="th">NAYARIT</th>
+<th data-quarto-table-cell-role="th">NUEVO LEON</th>
+<th data-quarto-table-cell-role="th">PUEBLA</th>
+<th data-quarto-table-cell-role="th">SINALOA</th>
+<th data-quarto-table-cell-role="th">SONORA</th>
+<th data-quarto-table-cell-role="th">TAMAULIPAS</th>
+<th data-quarto-table-cell-role="th">VERACRUZ</th>
+<th data-quarto-table-cell-role="th">ZACATECAS</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">entidad_desap</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">COLIMA</th>
+<td>0.733428</td>
+<td>0.128090</td>
+<td>0.678623</td>
+<td>0.234541</td>
+<td>0.259165</td>
+<td>1.000000</td>
+<td>0.695179</td>
+<td>0.696972</td>
+<td>0.720682</td>
+<td>0.681978</td>
+<td>0.491509</td>
+<td>0.514168</td>
+<td>0.870592</td>
+<td>0.540280</td>
+<td>0.285099</td>
+<td>0.714233</td>
+<td>0.801157</td>
+<td>0.682973</td>
+<td>0.566349</td>
+<td>0.403004</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">ESTADO DE MEXICO</th>
+<td>0.687911</td>
+<td>0.470349</td>
+<td>0.879601</td>
+<td>0.484126</td>
+<td>0.368614</td>
+<td>0.695179</td>
+<td>1.000000</td>
+<td>0.786985</td>
+<td>0.700176</td>
+<td>0.566043</td>
+<td>0.557474</td>
+<td>0.596343</td>
+<td>0.674704</td>
+<td>0.577333</td>
+<td>0.803734</td>
+<td>0.962939</td>
+<td>0.684395</td>
+<td>0.543353</td>
+<td>0.508229</td>
+<td>0.611043</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">GUANAJUATO</th>
+<td>0.511789</td>
+<td>0.271426</td>
+<td>0.700036</td>
+<td>0.708106</td>
+<td>0.240667</td>
+<td>0.696972</td>
+<td>0.786985</td>
+<td>1.000000</td>
+<td>0.651244</td>
+<td>0.455152</td>
+<td>0.811598</td>
+<td>0.696633</td>
+<td>0.629301</td>
+<td>0.627193</td>
+<td>0.454206</td>
+<td>0.770038</td>
+<td>0.916102</td>
+<td>0.563620</td>
+<td>0.469734</td>
+<td>0.491561</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">GUERRERO</th>
+<td>0.814242</td>
+<td>0.418179</td>
+<td>0.662763</td>
+<td>0.505250</td>
+<td>0.356202</td>
+<td>0.720682</td>
+<td>0.700176</td>
+<td>0.651244</td>
+<td>1.000000</td>
+<td>0.811717</td>
+<td>0.710008</td>
+<td>0.614863</td>
+<td>0.614615</td>
+<td>0.537526</td>
+<td>0.272339</td>
+<td>0.769517</td>
+<td>0.791743</td>
+<td>0.693757</td>
+<td>0.849612</td>
+<td>0.654465</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">JALISCO</th>
+<td>0.875437</td>
+<td>0.159581</td>
+<td>0.664124</td>
+<td>0.263748</td>
+<td>0.553914</td>
+<td>0.681978</td>
+<td>0.566043</td>
+<td>0.455152</td>
+<td>0.811717</td>
+<td>1.000000</td>
+<td>0.505633</td>
+<td>0.505374</td>
+<td>0.408662</td>
+<td>0.524535</td>
+<td>0.209746</td>
+<td>0.709910</td>
+<td>0.667258</td>
+<td>0.806924</td>
+<td>0.795326</td>
+<td>0.439334</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">MICHOACAN</th>
+<td>0.539292</td>
+<td>0.535230</td>
+<td>0.431037</td>
+<td>0.891892</td>
+<td>0.248079</td>
+<td>0.491509</td>
+<td>0.557474</td>
+<td>0.811598</td>
+<td>0.710008</td>
+<td>0.505633</td>
+<td>1.000000</td>
+<td>0.784224</td>
+<td>0.485131</td>
+<td>0.511349</td>
+<td>0.127185</td>
+<td>0.575545</td>
+<td>0.851890</td>
+<td>0.531254</td>
+<td>0.663318</td>
+<td>0.736153</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">MORELOS</th>
+<td>0.598554</td>
+<td>0.460347</td>
+<td>0.393163</td>
+<td>0.577430</td>
+<td>0.134811</td>
+<td>0.514168</td>
+<td>0.596343</td>
+<td>0.696633</td>
+<td>0.614863</td>
+<td>0.505374</td>
+<td>0.784224</td>
+<td>1.000000</td>
+<td>0.537349</td>
+<td>0.328524</td>
+<td>0.293348</td>
+<td>0.574250</td>
+<td>0.710586</td>
+<td>0.380600</td>
+<td>0.503280</td>
+<td>0.641215</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">NAYARIT</th>
+<td>0.520240</td>
+<td>0.351904</td>
+<td>0.551300</td>
+<td>0.279702</td>
+<td>0.132343</td>
+<td>0.870592</td>
+<td>0.674704</td>
+<td>0.629301</td>
+<td>0.614615</td>
+<td>0.408662</td>
+<td>0.485131</td>
+<td>0.537349</td>
+<td>1.000000</td>
+<td>0.462320</td>
+<td>0.301034</td>
+<td>0.625706</td>
+<td>0.652523</td>
+<td>0.464103</td>
+<td>0.513797</td>
+<td>0.540120</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">NUEVO LEON</th>
+<td>0.371834</td>
+<td>0.098473</td>
+<td>0.753815</td>
+<td>0.451838</td>
+<td>0.795555</td>
+<td>0.540280</td>
+<td>0.577333</td>
+<td>0.627193</td>
+<td>0.537526</td>
+<td>0.524535</td>
+<td>0.511349</td>
+<td>0.328524</td>
+<td>0.462320</td>
+<td>1.000000</td>
+<td>0.296653</td>
+<td>0.688082</td>
+<td>0.588276</td>
+<td>0.868384</td>
+<td>0.576268</td>
+<td>0.400786</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">PUEBLA</th>
+<td>0.385751</td>
+<td>0.317179</td>
+<td>0.725911</td>
+<td>0.218577</td>
+<td>0.278243</td>
+<td>0.285099</td>
+<td>0.803734</td>
+<td>0.454206</td>
+<td>0.272339</td>
+<td>0.209746</td>
+<td>0.127185</td>
+<td>0.293348</td>
+<td>0.301034</td>
+<td>0.296653</td>
+<td>1.000000</td>
+<td>0.742819</td>
+<td>0.217179</td>
+<td>0.188202</td>
+<td>0.035540</td>
+<td>0.237827</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">SINALOA</th>
+<td>0.747498</td>
+<td>0.378098</td>
+<td>0.948925</td>
+<td>0.474384</td>
+<td>0.510421</td>
+<td>0.714233</td>
+<td>0.962939</td>
+<td>0.770038</td>
+<td>0.769517</td>
+<td>0.709910</td>
+<td>0.575545</td>
+<td>0.574250</td>
+<td>0.625706</td>
+<td>0.688082</td>
+<td>0.742819</td>
+<td>1.000000</td>
+<td>0.725009</td>
+<td>0.696395</td>
+<td>0.628470</td>
+<td>0.565979</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">SONORA</th>
+<td>0.674079</td>
+<td>0.255928</td>
+<td>0.637263</td>
+<td>0.654855</td>
+<td>0.237353</td>
+<td>0.801157</td>
+<td>0.684395</td>
+<td>0.916102</td>
+<td>0.791743</td>
+<td>0.667258</td>
+<td>0.851890</td>
+<td>0.710586</td>
+<td>0.652523</td>
+<td>0.588276</td>
+<td>0.217179</td>
+<td>0.725009</td>
+<td>1.000000</td>
+<td>0.664248</td>
+<td>0.665334</td>
+<td>0.540609</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">TAMAULIPAS</th>
+<td>0.658060</td>
+<td>0.030245</td>
+<td>0.754130</td>
+<td>0.357031</td>
+<td>0.780557</td>
+<td>0.682973</td>
+<td>0.543353</td>
+<td>0.563620</td>
+<td>0.693757</td>
+<td>0.806924</td>
+<td>0.531254</td>
+<td>0.380600</td>
+<td>0.464103</td>
+<td>0.868384</td>
+<td>0.188202</td>
+<td>0.696395</td>
+<td>0.664248</td>
+<td>1.000000</td>
+<td>0.729207</td>
+<td>0.366985</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">VERACRUZ</th>
+<td>0.701134</td>
+<td>0.398032</td>
+<td>0.543210</td>
+<td>0.473706</td>
+<td>0.422800</td>
+<td>0.566349</td>
+<td>0.508229</td>
+<td>0.469734</td>
+<td>0.849612</td>
+<td>0.795326</td>
+<td>0.663318</td>
+<td>0.503280</td>
+<td>0.513797</td>
+<td>0.576268</td>
+<td>0.035540</td>
+<td>0.628470</td>
+<td>0.665334</td>
+<td>0.729207</td>
+<td>1.000000</td>
+<td>0.658874</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">ZACATECAS</th>
+<td>0.529681</td>
+<td>0.846260</td>
+<td>0.358038</td>
+<td>0.679996</td>
+<td>0.246383</td>
+<td>0.403004</td>
+<td>0.611043</td>
+<td>0.491561</td>
+<td>0.654465</td>
+<td>0.439334</td>
+<td>0.736153</td>
+<td>0.641215</td>
+<td>0.540120</td>
+<td>0.400786</td>
+<td>0.237827</td>
+<td>0.565979</td>
+<td>0.540609</td>
+<td>0.366985</td>
+<td>0.658874</td>
+<td>1.000000</td>
+</tr>
+</tbody>
+</table>
 
-        // Change the presentation direction to be RTL
-        rtl: false,
+</div>
+</div>
+</div>
+<hr>
+<section id="heatmap-de-desapariciones-top-20" class="level4">
+<h4 class="anchored" data-anchor-id="heatmap-de-desapariciones-top-20">Heatmap de Desapariciones (Top 20)</h4>
+<div id="7cfc1afb" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Generamos el heatmap usando seaborn</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>sns.heatmap(</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    matriz_correlacion, </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    annot<span class="op">=</span><span class="va">True</span>,         <span class="co"># Muestra los números dentro de los cuadros</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'coolwarm'</span>,    <span class="co"># Mapa de colores: Rojo para correlación positiva, azul para negativa</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>,    <span class="co"># Rango matemático de Pearson</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    fmt<span class="op">=</span><span class="st">".2f"</span>,          <span class="co"># Mostrar solo dos decimales</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    linewidths<span class="op">=</span><span class="fl">0.5</span>      <span class="co"># Líneas blancas separando los cuadros</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Matriz de Correlación (Heatmap) de Desapariciones: Top 20 Entidades'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Entidad'</span>)</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Entidad'</span>)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>)</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="presentation_files/figure-html/cell-13-output-1.png" width="914" height="757" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="estado-final-del-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="estado-final-del-dataset">Estado Final del Dataset</h3>
+<div id="ec550f17" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>faltantes <span class="op">=</span> df_reducido.isnull().<span class="bu">sum</span>()</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>porcentaje <span class="op">=</span> (faltantes <span class="op">/</span> <span class="bu">len</span>(df)) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>faltantes_df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"faltantes"</span>: faltantes,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"porcentaje"</span>: porcentaje</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>}).sort_values(by<span class="op">=</span><span class="st">"porcentaje"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>duplicados <span class="op">=</span> df_reducido.duplicated().<span class="bu">sum</span>()</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(faltantes_df, <span class="st">"</span><span class="ch">\n</span><span class="st">Número de duplicados:"</span>, duplicados)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   faltantes  porcentaje
+estatus_busqueda       27198   30.314311
+fecha_desap             6913    7.705082
+anio_desap              6913    7.705082
+dias_desde_inicio       6913    7.705082
+entidad_desap              0    0.000000
+nombrecompleto             0    0.000000
+Número de duplicados: 0</code></pre>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="averiguaciones-relevantes-continuación" class="level2">
+<h2 class="anchored" data-anchor-id="averiguaciones-relevantes-continuación">Averiguaciones Relevantes (Continuación)</h2>
+<ul>
+<li>El fenómeno de las desapariciones está altamente concentrado en pocas entidades. Aunque el promedio nacional por estado es de ~2,700 casos, Tamaulipas (11,786) y Estado de México (10,935) lo superan ampliamente.</li>
+<li>2007 presenta el pico histórico de desapariciones con 10,410 casos, lo que estadísticamente es un outlier masivo frente a años previos. Este valor refleja un periodo de alta inseguridad en el país.</li>
+<li>Aunque 2007 tiene el máximo absoluto de casos, la mediana temporal de desapariciones se ubica en 2016. Dado que los datos van de 1967 a 2023, esto implica que el 50 % de las desapariciones ocurrió solo en el periodo 2016–2023.</li>
+<li>La columna estatus_busqueda tiene 27,364 valores nulos. Se sugiere que no son faltantes aleatorios (MCAR), sino MNAR, probablemente asociados a limitaciones de recursos o capacidad institucional para dar seguimiento.</li>
+</ul>
+<hr>
+</section>
+<section id="averiguaciones-relevantes-continuación-1" class="level2">
+<h2 class="anchored" data-anchor-id="averiguaciones-relevantes-continuación-1">Averiguaciones Relevantes (Continuación)</h2>
+<ul>
+<li>Destacan fuertes correlaciones positivas en el Noreste (Nuevo León–Tamaulipas, r = 0.87) y en el Pacífico (Colima–Nayarit, r = 0.87), indicando oleadas simultáneas de desapariciones.</li>
+<li>La categoría “Con indicios / Ubicada” suma solo 12,563 registros en estatus_busqueda. En cambio, “Se busca reportante” (22,704) y “Se requieren datos de identidad” (18,362) dominan la distribución, evidenciando que la mayoría de los casos no avanzan por falta de información o abandono.</li>
+<li>No se observan muchos homónimos pese al tamaño del dataset. La variabilidad de datos entre registros con el mismo nombre ayuda a distinguir personas únicas que podrían haber pasado desapercibidas.</li>
+<li>Aunque el indicador de Tabasco es relevante, Estado de México y Sinaloa muestran la mayor correlación en el número de desaparecidos a lo largo del tiempo. Esto podría sugerir una conexión problemática entre ambas entidades, como operaciones ilegales compartidas.</li>
+</ul>
+</section>
 
-        // see https://revealjs.com/vertical-slides/#navigation-mode
-        navigationMode: 'linear',
-
-        // Randomizes the order of slides each time the presentation loads
-        shuffle: false,
-
-        // Turns fragments on and off globally
-        fragments: true,
-
-        // Flags whether to include the current fragment in the URL,
-        // so that reloading brings you to the same fragment position
-        fragmentInURL: false,
-
-        // Flags if the presentation is running in an embedded mode,
-        // i.e. contained within a limited portion of the screen
-        embedded: false,
-
-        // Flags if we should show a help overlay when the questionmark
-        // key is pressed
-        help: true,
-
-        // Flags if it should be possible to pause the presentation (blackout)
-        pause: true,
-
-        // Flags if speaker notes should be visible to all viewers
-        showNotes: false,
-
-        // Global override for autoplaying embedded media (null/true/false)
-        autoPlayMedia: true,
-
-        // Global override for preloading lazy-loaded iframes (null/true/false)
-        preloadIframes: null,
-
-        // Number of milliseconds between automatically proceeding to the
-        // next slide, disabled when set to 0, this value can be overwritten
-        // by using a data-autoslide attribute on your slides
-        autoSlide: 0,
-
-        // Stop auto-sliding after user input
-        autoSlideStoppable: true,
-
-        // Use this method for navigation when auto-sliding
-        autoSlideMethod: null,
-
-        // Specify the average time in seconds that you think you will spend
-        // presenting each slide. This is used to show a pacing timer in the
-        // speaker view
-        defaultTiming: null,
-
-        // Enable slide navigation via mouse wheel
-        mouseWheel: false,
-
-        // The display mode that will be used to show slides
-        display: 'block',
-
-        // Hide cursor if inactive
-        hideInactiveCursor: true,
-
-        // Time before the cursor is hidden (in ms)
-        hideCursorTime: 5000,
-
-        // Opens links in an iframe preview overlay
-        previewLinks: false,
-
-        // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'none',
-
-        // Transition speed (default/fast/slow)
-        transitionSpeed: 'default',
-
-        // Transition style for full page slide backgrounds
-        // (none/fade/slide/convex/concave/zoom)
-        backgroundTransition: 'none',
-
-        // Number of slides away from the current that are visible
-        viewDistance: 3,
-
-        // Number of slides away from the current that are visible on mobile
-        // devices. It is advisable to set this to a lower number than
-        // viewDistance in order to save resources.
-        mobileViewDistance: 2,
-
-        // The "normal" size of the presentation, aspect ratio will be preserved
-        // when the presentation is scaled to fit different resolutions. Can be
-        // specified using percentage units.
-        width: 1050,
-
-        height: 700,
-
-        // Factor of the display size that should remain empty around the content
-        margin: 0.1,
-
-        math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
-        // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
-
-          RevealMath,
-          RevealNotes,
-          RevealSearch,
-          RevealZoom
-        ]
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button,
+          { trigger: "manual",
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
-    </script>
-    <script id="quarto-html-after-body" type="application/javascript">
-      window.document.addEventListener("DOMContentLoaded", function (event) {
-        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-        tabsets.forEach(function(tabset) {
-          const tabby = new Tabby('#' + tabset.id);
-        });
-        const isCodeAnnotation = (el) => {
-          for (const clz of el.classList) {
-            if (clz.startsWith('code-annotation-')) {
-              return true;
-            }
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
-          return false;
         }
-        const onCopySuccess = function(e) {
-          // button target
-          const button = e.trigger;
-          // don't keep focus
-          button.blur();
-          // flash "checked"
-          button.classList.add('code-copy-button-checked');
-          var currentTitle = button.getAttribute("title");
-          button.setAttribute("title", "Copied!");
-          let tooltip;
-          if (window.bootstrap) {
-            button.setAttribute("data-bs-toggle", "tooltip");
-            button.setAttribute("data-bs-placement", "left");
-            button.setAttribute("data-bs-title", "Copied!");
-            tooltip = new bootstrap.Tooltip(button,
-              { trigger: "manual",
-                customClass: "code-copy-button-tooltip",
-                offset: [0, -8]});
-            tooltip.show();
-          }
-          setTimeout(function() {
-            if (tooltip) {
-              tooltip.hide();
-              button.removeAttribute("data-bs-title");
-              button.removeAttribute("data-bs-toggle");
-              button.removeAttribute("data-bs-placement");
-            }
-            button.setAttribute("title", currentTitle);
-            button.classList.remove('code-copy-button-checked');
-          }, 1000);
-          // clear code selection
-          e.clearSelection();
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
           }
-          return codeEl.innerText;
         }
-        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-          text: getTextToCopy
-        });
-        clipboard.on('success', onCopySuccess);
-        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-            text: getTextToCopy,
-            container: window.document.getElementById('quarto-embedded-source-code-modal')
-          });
-          clipboardModal.on('success', onCopySuccess);
-        }
-          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-          var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp('/' + window.location.host + '/');
-          var isInternal = (href) => {
-              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-          }
-          // Inspect non-navigation links and adorn them if external
-         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-          for (var i=0; i<links.length; i++) {
-            const link = links[i];
-            if (!isInternal(link.href)) {
-              // undo the damage that might have been done by quarto-nav.js in the case of
-              // links that we want to consider external
-              if (link.dataset.originalHref !== undefined) {
-                link.href = link.dataset.originalHref;
-              }
-            }
-          }
-        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-          const config = {
-            allowHTML: true,
-            maxWidth: 500,
-            delay: 100,
-            arrow: false,
-            appendTo: function(el) {
-                return el.closest('section.slide') || el.parentElement;
-            },
-            interactive: true,
-            interactiveBorder: 10,
-            theme: 'light-border',
-            placement: 'bottom-start',
-          };
-          if (contentFn) {
-            config.content = contentFn;
-          }
-          if (onTriggerFn) {
-            config.onTrigger = onTriggerFn;
-          }
-          if (onUntriggerFn) {
-            config.onUntrigger = onUntriggerFn;
-          }
-            config['offset'] = [0,0];
-            config['maxWidth'] = 700;
-          window.tippy(el, config);
-        }
-        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-        for (var i=0; i<noterefs.length; i++) {
-          const ref = noterefs[i];
-          tippyHover(ref, function() {
-            // use id or data attribute instead here
-            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-            try { href = new URL(href).hash; } catch {}
-            const id = href.replace(/^#\/?/, "");
-            const note = window.document.getElementById(id);
-            if (note) {
-              return note.innerHTML;
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
             } else {
-              return "";
+              container.appendChild(child.cloneNode(true));
+              break;
             }
-          });
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
         }
-        const findCites = (el) => {
-          const parentEl = el.parentElement;
-          if (parentEl) {
-            const cites = parentEl.dataset.cites;
-            if (cites) {
-              return {
-                el,
-                cites: cites.split(' ')
-              };
-            } else {
-              return findCites(el.parentElement)
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined;
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
             }
           } else {
-            return undefined;
-          }
-        };
-        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-        for (var i=0; i<bibliorefs.length; i++) {
-          const ref = bibliorefs[i];
-          const citeInfo = findCites(ref);
-          if (citeInfo) {
-            tippyHover(citeInfo.el, function() {
-              var popup = window.document.createElement('div');
-              citeInfo.cites.forEach(function(cite) {
-                var citeDiv = window.document.createElement('div');
-                citeDiv.classList.add('hanging-indent');
-                citeDiv.classList.add('csl-entry');
-                var biblioDiv = window.document.getElementById('ref-' + cite);
-                if (biblioDiv) {
-                  citeDiv.innerHTML = biblioDiv.innerHTML;
-                }
-                popup.appendChild(citeDiv);
-              });
-              return popup.innerHTML;
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              }
+            }).finally(() => {
+              instance.enable();
+              instance.show();
             });
           }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            }
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
         }
+      }, function(instance) {
       });
-      </script>
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
 
 
 </body></html>

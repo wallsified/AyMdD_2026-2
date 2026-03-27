@@ -1,0 +1,520 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"Tarea #2\"\n",
+        "subtitle: \"EDA, Personas Desaparecidas en México\"\n",
+        "tbl-colwidths: [25,25]\n",
+        "format:\n",
+        "  revealjs:\n",
+        "    theme: night\n",
+        "    css: styles.css\n",
+        "    scrollable: true\n",
+        "    slide-number: true\n",
+        "    controls-tutorial: true\n",
+        "    controls-layout: bottom-right\n",
+        "    progress: true\n",
+        "    center: true\n",
+        "    autoPlayMedia: true\n",
+        "    touch: true\n",
+        "    preview-links: auto\n",
+        "    logo: imagenes/logos_unam.png\n",
+        "    footer: 'Almacenes y Minería de Datos (26-2)'\n",
+        "author:\n",
+        "  - name: \"Méndez Ávila Luis Geovanni\"\n",
+        "    affiliation: \"317143980\"\n",
+        "  - name: \"Sánchez Rosas Roberto Samuel\"\n",
+        "    affiliation: \"318355159\"\n",
+        "  - name: \"Domínguez Sánchez Gustavo Alonso\"\n",
+        "    affiliation: \"418047121\"\n",
+        "  - name: \"Paredes Zamudio Luis Daniel\"\n",
+        "    affiliation: \"318159926\"\n",
+        "---\n",
+        "\n",
+        "### Diccionario de Datos\n",
+        "\n",
+        "| Variable         | Descripcion                                                                                     | Tipo Dato (Pandas)   | Tipo Dato (Semantico)   | Tipo Estadistico   |   # No Nulos |   # Nulos |   # Únicos No Nulos | Ejemplos                                                                                   |\n",
+        "|:-----------------|:------------------------------------------------------------------------------------------------|:---------------------|:------------------------|:-------------------|-------------:|----------:|--------------------:|:-------------------------------------------------------------------------------------------|\n",
+        "| dataset_id       | Identificador único del registro.                                                               | int64                | entero                  | numérico           |        89720 |         0 |               89720 | 1, 2                                                                                       |\n",
+        "| nombrecompleto   | Nombre completo de la persona reportada como desaparecida/no localizada.                        | str                  | texto                   | categórico         |        89720 |         0 |               88513 | LUIS ADRIAN JUAREZ MORALES, ERNESTO ALONSO HERNANDEZ GUTIERREZ                             |\n",
+        "| rnpdno_json      | Presencia/coincidencia en RNPDNO (0/1).                                                         | int64                | entero                  | numérico           |        89720 |         0 |                   2 | 1, 0                                                                                       |\n",
+        "| entidad_desap    | Entidad donde se reporta la desaparición/no localización.                                       | str                  | texto                   | categórico         |        89720 |         0 |                  33 | QUERETARO, CHIHUAHUA                                                                       |\n",
+        "| pre_rnped        | Indicador previo asociado a RNPED (0/1), usado para cruce/validación entre fuentes.             | int64                | entero                  | numérico           |        89720 |         0 |                   2 | 0, 1                                                                                       |\n",
+        "| rnped            | Presencia/coincidencia con registros RNPED (0/1).                                               | int64                | entero                  | numérico           |        89720 |         0 |                   2 | 0, 1                                                                                       |\n",
+        "| rnpdno_csv       | Presencia/coincidencia en RNPDNO en formato CSV (0/1).                                          | int64                | entero                  | numérico           |        89720 |         0 |                   2 | 1, 0                                                                                       |\n",
+        "---\n",
+        "\n",
+        "### Diccionario de Datos (Continuación)\n",
+        "\n",
+        "| Variable         | Descripcion                                                                                     | Tipo Dato (Pandas)   | Tipo Dato (Semantico)   | Tipo Estadistico   |   # No Nulos |   # Nulos |   # Únicos No Nulos | Ejemplos                                                                                   |\n",
+        "|:-----------------|:------------------------------------------------------------------------------------------------|:---------------------|:------------------------|:-------------------|-------------:|----------:|--------------------:|:-------------------------------------------------------------------------------------------|\n",
+        "| bg_1             | Bandera/indicador auxiliar de consistencia o disponibilidad de información (primer indicador).  | int64                | entero                  | numérico           |        89720 |         0 |                   2 | 0, 1                                                                                       |\n",
+        "| estatus_busqueda | Estatus del proceso de búsqueda.                                                                | str                  | texto                   | categórico         |        62356 |     27364 |                   9 | Con indicios / Ubicada, Se busca reportante                                                |\n",
+        "| bg_2             | Bandera/indicador auxiliar de consistencia o disponibilidad de información (segundo indicador). | int64                | entero                  | numérico           |        89720 |         0 |                   2 | 0, 1                                                                                       |\n",
+        "| fub              | Folio Único de Búsqueda.                                                                        | str                  | texto                   | categórico         |        63670 |     26050 |               63089 | 187731B1B-3302-4BE3-81D5-018CFB86A00B, 122009919-199C-4B90-8462-935A6EDCE439               |\n",
+        "| DC_id            | Identificador de cruce o conciliación entre distintas fuentes (JSON/CSV/FUB).                   | str                  | texto                   | categórico         |        80069 |      9651 |               79657 | 101 (json), 5673 (csv), 349 (json), 448 (csv), 187731B1B-3302-4BE3-81D5-018CFB86A00B (fub) |\n",
+        "| fecha_desap      | Fecha de desaparición o no localización reportada.                                              | str                  | fecha (texto parseable) | categórico         |        82795 |      6925 |                7749 | 19/04/2023, 12/07/2016                                                                     |\n",
+        "\n",
+        "---\n",
+        "\n",
+        "## Prolemáticas a Resolver\n",
+        "\n",
+        "1. ¿Cuáles son las <span class=\"kw\">entidades con mayor incidencia</span> de desapariciones?\n",
+        "2. ¿Cuál es la tendencia de desapariciones a lo largo del tiempo? ¿<span class=\"kw\">Aumentan o disminuyen</span> los desaparecidos?\n",
+        "3. ¿Qué proporción de casos está <span class=\"kw\">activo vs. resuelto</span>?\n",
+        "4. ¿Cuál es la <span class=\"kw\">tasa de resolución por entidad</span>? ¿Hay entidades más efectivas que otras?\n",
+        "\n",
+        "---\n",
+        "\n",
+        "## Criterios de Éxito\n",
+        "\n",
+        "- Se deben de <span class=\"ok\">identificar</span> de forma clara las <span class=\"ok\">tendencias temporales y globales</span> en el dataset.\n",
+        "- Es de gran importancia <span class=\"ok\">detectar zonas críticas</span> para conocer donde se deben aplicar más esfuerzos en resolver estos casos.\n",
+        "- Al ser un dataset con muchas inconsistencias, debemos llegar a los <span class=\"ok\">resultados más interpretables posibles</span>.\n",
+        "\n",
+        "---\n",
+        "\n",
+        "### Primera Exploración del Dataset"
+      ],
+      "id": "f59640ff"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import pandas as pd\n",
+        "import matplotlib.pyplot as plt\n",
+        "import seaborn as sns\n",
+        "import numpy as np\n",
+        "\n",
+        "dataset_path = \"../dataset/tot_reg_desap.csv\"\n",
+        "df = pd.read_csv(dataset_path)\n",
+        "print(f\"Total de Filas: {df.shape[0]}\")\n",
+        "print(f\"Total de Columnas: {df.shape[1]}\")\n",
+        "print(df.columns.to_list()) \n",
+        "df_ord_fechas = df.sort_values(by=\"fecha_desap\").dropna()\n",
+        "primero_y_ultimo = df_ord_fechas.iloc[[0, -1]]\n",
+        "print(\"\\nPrimera Fecha y última fecha:\")\n",
+        "print(primero_y_ultimo[\"fecha_desap\"])\n",
+        "df.head()"
+      ],
+      "id": "cc7fec51",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "\n",
+        "### Reducción de Dimensionalidad"
+      ],
+      "id": "8caf5c00"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Nuevo dataset con columnas clave\n",
+        "df = pd.read_csv(dataset_path)\n",
+        "df_reducido = df[[\"nombrecompleto\", \"entidad_desap\", \"estatus_busqueda\", \"fecha_desap\"]]\n",
+        "\n",
+        "# Convertir fecha\n",
+        "df_reducido[\"fecha_desap\"] = df_reducido[\"fecha_desap\"].str.split(\",\").str[0]\n",
+        "df_reducido[\"fecha_desap\"] = pd.to_datetime(df_reducido[\"fecha_desap\"], dayfirst=True, errors=\"coerce\")\n",
+        "df_reducido[\"anio_desap\"] = df_reducido[\"fecha_desap\"].dt.year\n",
+        "\n",
+        "duplicados = df_reducido[df_reducido.duplicated()]\n",
+        "# Eliminar aquellos duplicados que tengan los 4 campos iguales (nombre, entidad, estatus, fecha)\n",
+        "df_reducido = df_reducido.drop_duplicates(subset=[\n",
+        "    'nombrecompleto',\n",
+        "    'entidad_desap',\n",
+        "    'estatus_busqueda',\n",
+        "    'fecha_desap'\n",
+        "])\n",
+        "duplicados = df_reducido[df_reducido.duplicated()]\n",
+        "print(\"Dataset reducido tras pre-procesamiento: \\n\\n\", df_reducido)\n",
+        "print(\"\\n\\n Revisamos limpieza de duplicados correcta mostrando el dataframe de 'duplicados' vacío: \\n\\n\")\n",
+        "print(duplicados)"
+      ],
+      "id": "0b27d8cc",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "\n",
+        "### Análisis de Frecuencias"
+      ],
+      "id": "0653e669"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "frecuencias_entidad = df_reducido['entidad_desap'].value_counts()\n",
+        "frecuencias_anio = df_reducido['anio_desap'].value_counts().sort_index()\n",
+        "frecuencias_estatus = df_reducido['estatus_busqueda'].value_counts()\n",
+        "media_entidades = frecuencias_entidad.mean()\n",
+        "print(\"La media de desapariciones por entidad es: \" + str(media_entidades))\n",
+        "media_anual = frecuencias_anio.mean()\n",
+        "print(\"La media de desapariciones por anio es: \" + str(media_anual))\n",
+        "mediana_anio = df_reducido['anio_desap'].median()\n",
+        "print(\"La mediana de los anios del dataset es: \" + str(mediana_anio))\n",
+        "moda_anio = df_reducido['anio_desap'].mode()\n",
+        "print(\"La moda de los anios del dataset es: \" + str(moda_anio))\n",
+        "moda_estado = df_reducido['entidad_desap'].mode()\n",
+        "print(\"La moda de los estados del dataset es: \" + str(moda_estado))\n",
+        "moda_estatus = df_reducido['estatus_busqueda'].mode()\n",
+        "print(\"La moda de los estados de busqueda del dataset es: \" + str(moda_estatus))"
+      ],
+      "id": "90ecfb61",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---"
+      ],
+      "id": "f6a45d6a"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Grafica por Estado\n",
+        "\n",
+        "plt.figure(figsize=(12, 6))\n",
+        "frecuencias_entidad.plot(kind='bar')  \n",
+        "plt.title('Concentración de Desapariciones por Estado')\n",
+        "plt.xlabel('Estado')\n",
+        "plt.ylabel('Casos')\n",
+        "plt.xticks(rotation=90)\n",
+        "plt.locator_params(axis='y', nbins=20)\n",
+        "plt.tight_layout()\n",
+        "plt.show()"
+      ],
+      "id": "37781e45",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---"
+      ],
+      "id": "d6532b58"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "plt.figure(figsize=(15, 6))\n",
+        "frecuencias_anio.plot(kind='bar')\n",
+        "plt.title('Desapariciones por año')\n",
+        "plt.xlabel('Año')\n",
+        "plt.ylabel('Casos')\n",
+        "plt.xticks(rotation=90)\n",
+        "plt.locator_params(axis='y', nbins=20)\n",
+        "plt.tight_layout()\n",
+        "plt.show()"
+      ],
+      "id": "1a76fbc8",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "\n",
+        "### Medidas de Variabilidad"
+      ],
+      "id": "1129df18"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "resumen_varianzas_anio = pd.DataFrame({\n",
+        "    \"media\": [df_reducido[\"anio_desap\"].mean()],\n",
+        "    \"varianza\": [df_reducido[\"anio_desap\"].var()],\n",
+        "    \"desv_std\": [df_reducido[\"anio_desap\"].std()],\n",
+        "    \"min\": [df_reducido[\"anio_desap\"].min()],\n",
+        "    \"q1\": [df_reducido[\"anio_desap\"].quantile(0.25)],\n",
+        "    \"mediana\": [df_reducido[\"anio_desap\"].median()],\n",
+        "    \"q3\": [df_reducido[\"anio_desap\"].quantile(0.75)],\n",
+        "    \"max\": [df_reducido[\"anio_desap\"].max()],\n",
+        "})\n",
+        "\n",
+        "resumen_varianzas_anio[\"rango\"] = resumen_varianzas_anio[\"max\"] - resumen_varianzas_anio[\"min\"]\n",
+        "resumen_varianzas_anio[\"IQR\"] = resumen_varianzas_anio[\"q3\"] - resumen_varianzas_anio[\"q1\"]\n",
+        "resumen_varianzas_anio[\"CV\"] = resumen_varianzas_anio[\"desv_std\"] / resumen_varianzas_anio[\"media\"]\n",
+        "resumen_varianzas_anio"
+      ],
+      "id": "76e6244f",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---"
+      ],
+      "id": "98a2d82f"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "df_reducido[\"dias_desde_inicio\"] = (df_reducido[\"fecha_desap\"] - df_reducido[\"fecha_desap\"].min()).dt.days\n",
+        "\n",
+        "# Boxplot de Año de Desaparición\n",
+        "plt.figure(figsize=(12, 6))\n",
+        "df_reducido[\"anio_desap\"].dropna().plot(kind=\"box\")\n",
+        "plt.title(\"Variabilidad de Desapariciones por Año\")\n",
+        "plt.ylabel(\"Año\")\n",
+        "plt.locator_params(axis='y', nbins=20)\n",
+        "plt.tight_layout()\n",
+        "plt.show()"
+      ],
+      "id": "7dd16bd1",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---"
+      ],
+      "id": "ed9ee8a3"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Boxplot de Dias desde la Desparación\n",
+        "plt.figure(figsize=(12, 6))\n",
+        "df_reducido[\"dias_desde_inicio\"].dropna().plot(kind=\"box\")\n",
+        "plt.title(\"Variabilidad en días desde la primera desaparición registrada\")\n",
+        "plt.ylabel(\"Días\")\n",
+        "plt.locator_params(axis='y', nbins=20)\n",
+        "plt.tight_layout()\n",
+        "plt.show()"
+      ],
+      "id": "9b5db115",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "\n",
+        "### Medidas de Heterogeneidad"
+      ],
+      "id": "0f787b7f"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "def entropia_shannon(serie):\n",
+        "    p = serie.value_counts(normalize=True, dropna=True)\n",
+        "    return -np.sum(p * np.log(p))\n",
+        "\n",
+        "def indice_gini(array):\n",
+        "    array = array.dropna().values\n",
+        "    if len(array) == 0:\n",
+        "        return np.nan\n",
+        "    array = np.sort(array)\n",
+        "    n = len(array)\n",
+        "    return (np.sum((2 * np.arange(1, n+1) - n - 1) * array)) / (n * np.sum(array))\n",
+        "\n",
+        "heterogeneidad = pd.DataFrame({\n",
+        "    \"Variable\": [\"entidad_desap\", \"estatus_busqueda\", \"anio_desap\"],\n",
+        "    \"Métrica\": [\"Shannon\", \"Shannon\", \"Gini\"],\n",
+        "    \"Valor\": [\n",
+        "        entropia_shannon(df_reducido[\"entidad_desap\"]),\n",
+        "        entropia_shannon(df_reducido[\"estatus_busqueda\"]),\n",
+        "        indice_gini(df_reducido[\"anio_desap\"])\n",
+        "    ]\n",
+        "})\n",
+        "heterogeneidad"
+      ],
+      "id": "e5e8d29b",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "\n",
+        "### Correlación"
+      ],
+      "id": "ba3f5bb7"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Obtenemos el Top 20 de entidades con más casos (excluyendo 'SE DESCONOCE')\n",
+        "top_estados = df_reducido[df_reducido['entidad_desap'] != 'SE DESCONOCE']['entidad_desap'].value_counts().head(20).index\n",
+        "# Filtramos el dataset para quedarnos solo con los registros de esos 10 estados\n",
+        "df_top20 = df_reducido[df_reducido['entidad_desap'].isin(top_estados)]\n",
+        "tabla_frecuencias_anuales = pd.crosstab(df_top20['anio_desap'], df_top20['entidad_desap'])\n",
+        "matriz_correlacion = tabla_frecuencias_anuales.corr(method='pearson')\n",
+        "display(tabla_frecuencias_anuales.tail(15))"
+      ],
+      "id": "2d8582f1",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---"
+      ],
+      "id": "60f86de8"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "display(matriz_correlacion.tail(15))"
+      ],
+      "id": "70ab7bde",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "\n",
+        "#### Heatmap de Desapariciones (Top 20)"
+      ],
+      "id": "db00ebf0"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import seaborn as sns\n",
+        "\n",
+        "plt.figure(figsize=(10, 8))\n",
+        "\n",
+        "# Generamos el heatmap usando seaborn\n",
+        "sns.heatmap(\n",
+        "    matriz_correlacion, \n",
+        "    annot=True,         # Muestra los números dentro de los cuadros\n",
+        "    cmap='coolwarm',    # Mapa de colores: Rojo para correlación positiva, azul para negativa\n",
+        "    vmin=-1, vmax=1,    # Rango matemático de Pearson\n",
+        "    fmt=\".2f\",          # Mostrar solo dos decimales\n",
+        "    linewidths=0.5      # Líneas blancas separando los cuadros\n",
+        ")\n",
+        "\n",
+        "plt.title('Matriz de Correlación (Heatmap) de Desapariciones: Top 20 Entidades', fontsize=14)\n",
+        "plt.xlabel('Entidad')\n",
+        "plt.ylabel('Entidad')\n",
+        "plt.xticks(rotation=45, ha='right')\n",
+        "plt.tight_layout()\n",
+        "plt.show()"
+      ],
+      "id": "3beb51c1",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "\n",
+        "### Estado Final del Dataset"
+      ],
+      "id": "da4dbe60"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "faltantes = df_reducido.isnull().sum()\n",
+        "porcentaje = (faltantes / len(df)) * 100\n",
+        "\n",
+        "faltantes_df = pd.DataFrame({\n",
+        "    \"faltantes\": faltantes,\n",
+        "    \"porcentaje\": porcentaje\n",
+        "}).sort_values(by=\"porcentaje\", ascending=False)\n",
+        "\n",
+        "duplicados = df_reducido.duplicated().sum()\n",
+        "print(faltantes_df, \"\\nNúmero de duplicados:\", duplicados)"
+      ],
+      "id": "5eef68e9",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "\n",
+        "## Averiguaciones Relevantes (Continuación)\n",
+        "\n",
+        "- El fenómeno de las desapariciones está altamente concentrado en pocas entidades. Aunque el promedio nacional por \n",
+        "estado es de ~2,700 casos, Tamaulipas (11,786) y Estado de México (10,935) lo superan ampliamente.\n",
+        "- 2007 presenta el pico histórico de desapariciones con 10,410 casos, lo que estadísticamente es un outlier masivo \n",
+        "frente a años previos. Este valor refleja un periodo de alta inseguridad en el país.\n",
+        "- Aunque 2007 tiene el máximo absoluto de casos, la mediana temporal de desapariciones se ubica en 2016. Dado que \n",
+        "los datos van de 1967 a 2023, esto implica que el 50 % de las desapariciones ocurrió solo en el periodo 2016–2023.\n",
+        "- La columna estatus_busqueda tiene 27,364 valores nulos. Se sugiere que no son faltantes aleatorios (MCAR), sino MNAR, \n",
+        "probablemente asociados a limitaciones de recursos o capacidad institucional para dar seguimiento.\n",
+        "\n",
+        "---\n",
+        "\n",
+        "## Averiguaciones Relevantes (Continuación)\n",
+        "\n",
+        "- Destacan fuertes correlaciones positivas en el Noreste (Nuevo León–Tamaulipas, r = 0.87) y en el Pacífico \n",
+        "(Colima–Nayarit, r = 0.87), indicando oleadas simultáneas de desapariciones.\n",
+        "- La categoría \"Con indicios / Ubicada\" suma solo 12,563 registros en estatus_busqueda. En cambio, \"Se busca reportante\" \n",
+        "(22,704) y \"Se requieren datos de identidad\" (18,362) dominan la distribución, evidenciando que la mayoría de los casos \n",
+        "no avanzan por falta de información o abandono.\n",
+        "- No se observan muchos homónimos pese al tamaño del dataset. La variabilidad de datos entre registros con el mismo nombre \n",
+        "ayuda a distinguir personas únicas que podrían haber pasado desapercibidas.\n",
+        "- Aunque el indicador de Tabasco es relevante, Estado de México y Sinaloa muestran la mayor correlación en el número de \n",
+        "desaparecidos a lo largo del tiempo. Esto podría sugerir una conexión problemática entre ambas entidades, como operaciones \n",
+        "ilegales compartidas."
+      ],
+      "id": "004a66ce"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/Users/wallsified/Documents/UNAM/2026-2/Almacenes y Mineria de Datos/AyMdD_2026-2/.venv/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
