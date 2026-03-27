@@ -25,7 +25,7 @@ jobs:
         uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Render Quarto document
-        run: quarto render "Tarea 2/presentation/presentation.qmd" --output-dir "Tarea 2/presentation/_site"
+        run: quarto render "Tarea 2/presentation/presentation.qmd" --to html --output-dir _site
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
