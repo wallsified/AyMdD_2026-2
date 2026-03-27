@@ -21,12 +21,34 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Copy the presentation.html into a _site folder as index.html
-      # so that Pages serves it as the root page.
+      # Debug: list contents
+      - name: List repository contents (debug)
+        run: |
+          pwd
+          ls -R
+
+      # Verify that presentation.html exists where we expect it
+      - name: Verify presentation.html exists
+        run: |
+          if [ ! -f "Tarea 2/presentation/presentation.html" ]; then
+            echo "File not found: 'Tarea 2/presentation/presentation.html'"
+            exit 1
+          fi
+          echo "Found presentation.html:"
+          ls -l "Tarea 2/presentation/presentation.html"
+
+      # Prepare the site: copy presentation.html to index.html
+      # and include styles.css + imagenes directory.
       - name: Prepare site directory
         run: |
           mkdir -p _site
           cp "Tarea 2/presentation/presentation.html" "_site/index.html"
+          cp "Tarea 2/presentation/styles.css" "_site/" || true
+          if [ -d "Tarea 2/presentation/imagenes" ]; then
+            cp -R "Tarea 2/presentation/imagenes" "_site/imagenes"
+          fi
+          echo "Files in _site:"
+          ls -R _site
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
