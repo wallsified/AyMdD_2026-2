@@ -17,6 +17,7 @@ format:
     preview-links: auto
     logo: imagenes/logos_unam.png
     footer: 'Almacenes y Minería de Datos (26-2)'
+jupyter: python3
 author:
   - name: "Méndez Ávila Luis Geovanni"
     affiliation: "317143980"
