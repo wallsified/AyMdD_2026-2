@@ -18,7 +18,7 @@ uv.lock
 *.run
 
 # datasets
-*.csv
+data_secretariado.csv
 *.json
 *.xlsx
 *.zip
@@ -26,5 +26,8 @@ uv.lock
 # quatro config files
 presentation_files/
 
+
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
+iframe_figures
+
