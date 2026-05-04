@@ -16,6 +16,8 @@ uv.lock
 *.out
 *.log
 *.run
+*.bcf
+*.run.xml
 
 # datasets
 data_secretariado.csv
@@ -31,3 +33,5 @@ presentation_files/
 .ipynb_checkpoints/
 iframe_figures
 
+Tarea 2/dataset/tot_reg_desap_modificado.csv
+Tarea 2/dataset/tot_reg_desap.csv
