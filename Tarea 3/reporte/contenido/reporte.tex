@@ -47,7 +47,7 @@ Decidimos incluir dos cosas extra dentro del mismo objeto Apriori. La primera fu
 
 Como nota aparte, por nuestras pruebas manuales, decidimos ocupar un valor de confianza mínima de $0.3$ en el algoritmo pues los resultados tenían más sentido a la realidad.
 
-El código de esta implementación se ve puede leer siguiente archivo de GitHub:
+El código de esta implementación se ve puede leer \href{https://github.com/Yoba7-7/AyMdD_2026-2/blob/main/Tarea%203/scripts/apriori.py}{en este archivo en GitHub}.
 
 Mientras que el de la ejecución se ve a continuación:
 
@@ -66,7 +66,7 @@ Esta ejecución, en promedio, tomó 3.5 minutos en cada vuelta. Por que en nuest
 \subsection{Resultados Obtenidos}
 
 A continuación se incluye una muestra de las 68 reglas de asociación obtenidas. El archivo completo de ellas se encuentra
-disponible en este archivo en GitHub:
+disponible \href{https://github.com/Yoba7-7/AyMdD_2026-2/blob/main/Tarea%203/datasets/datos_apriori_manual.csv}{en este archivo en GitHub}.
 
 \begin{lstlisting}
 ,antecedente,consecuente,soporte,confianza,lift
@@ -94,7 +94,7 @@ que se muestra como sigue:
 
 Esta pre-selección de 59 reglas será usada posteriormente para comparar resultados con los obtenidos en la siguiente sección.
 
-\section{Usando Apriori de\texttt{mlxtend}}
+\section{Usando Apriori de \texttt{mlxtend}}
 
 Para poder trabajar con \texttt{mlxtend} debemos hacer algunas modificaciones a una copia de nuestro dataset limpio (el que usamos anteriormente para ocupar nuestra implementación de Apriori). El dataframe que ocupa \texttt{mlxtend.aprori} debe ser un dataframe booleano o \textit{onehot}. Esto es, un dataframe en donde se de convertir cada valor posible de una columna en una columna booleana. Por ejemplo, si tenemos que los valores en la columna 'SEXO' son HOMBRE, MUJER, etc, entonces se debe detener un columna SEXO=HOMBRE con valores True o False, otra con SEXO=MUJER, etc, etc.
 
@@ -142,7 +142,7 @@ Sin embargo, aunque las reglas de asociación obtenidas con este método estuvie
 \end{lstlisting}
 
 
-El archivo completo de ellas se encuentra disponible en este archivo en GitHub:
+El archivo completo de ellas se encuentra disponible \href{https://github.com/Yoba7-7/AyMdD_2026-2/blob/main/Tarea%203/datasets/datos_mlxtend_manual.csv}{en este archivo en GitHub}.
 
 De igual manera, se hace una preselección de reglas con lift$<5$ obteniendo, de igual manera, 59 reglas de este conjunto:
 

@@ -3,22 +3,22 @@
 
 /* Paleta global */
 :root {
-  --accent-blue: #22d3ee;
-  --accent-blue-dark: #83A7B4;
-  --accent-green: #4ade80;
-  --accent-green-soft: #86efac;
-  --code-bg: #0b1020;
-  --code-border: #14532d;
-  --text-main: white;
-  --text-muted: #475569;
+    --accent-blue: #22d3ee;
+    --accent-blue-dark: #83a7b4;
+    --accent-green: #4ade80;
+    --accent-green-soft: #86efac;
+    --code-bg: #0b1020;
+    --code-border: #14532d;
+    --text-main: white;
+    --text-muted: #475569;
 }
 
 /* Base general de la presentación */
 .reveal {
-  font-family: "Red Hat Text", "Segoe UI", Arial, sans-serif;
-  /* Tamaño medio raro al ser inpar pero es lo que mejor se ajusta a la pantalla. */
-  font-size: 27px;
-  color: var(--text-main);
+    font-family: "Red Hat Text", "Segoe UI", Arial, sans-serif;
+    /* Tamaño medio raro al ser inpar pero es lo que mejor se ajusta a la pantalla. */
+    font-size: 28px;
+    color: var(--text-main);
 }
 
 /* Texto normal, listas, tablas, captions */
@@ -28,7 +28,7 @@
 .reveal th,
 .reveal figcaption,
 .reveal .slide-number {
-  font-family: "Red Hat Text", "Segoe UI", Arial, sans-serif !important;
+    font-family: "Red Hat Text", "Segoe UI", Arial, sans-serif !important;
 }
 
 /* Títulos globales */
@@ -40,41 +40,51 @@
 .reveal h6,
 .reveal .title,
 .reveal .subtitle {
-  font-family: "Red Hat Display", "Segoe UI", Arial, sans-serif !important;
-  font-weight: 600;
-  text-transform: none;
-  color: var(--text-main);
+    font-family: "Red Hat Display", "Segoe UI", Arial, sans-serif !important;
+    font-weight: 600;
+    text-transform: none;
+    color: var(--text-main);
 }
 
 /* Tamaños sugeridos */
-.reveal h1 { font-size: 2.2em; }
-.reveal h2 { font-size: 1.8em; }
-.reveal h3 { font-size: 1.4em; }
+.reveal h1 {
+    font-size: 2.2em;
+}
+.reveal h2 {
+    font-size: 1.8em;
+}
+.reveal h3 {
+    font-size: 1.4em;
+}
 
 /* Utilidades para resaltar texto */
 .kw {
-  color: var(--accent-blue);
-  font-weight: 500;
+    color: var(--accent-blue);
+    font-weight: 500;
 }
 
 .detail {
-  color: var(--accent-blue-dark);
+    color: var(--accent-blue-dark);
 }
 
 .ok {
-  color: var(--accent-green);
-  font-weight: 450;
+    color: var(--accent-green);
+    font-weight: 450;
 }
 
 .muted {
-  color: var(--text-muted);
+    color: var(--text-muted);
 }
 
 /* Links en azul */
 .reveal a,
 .reveal a:hover {
-  color: var(--accent-blue);
+    color: var(--accent-blue);
 }
+
+/* ============================
+   Código
+   ============================ */
 
 /* Código: fuente global */
 .reveal code,
@@ -82,72 +92,145 @@
 .reveal pre code,
 code.sourceCode,
 pre.sourceCode {
-  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace !important;
-  font-variant-ligatures: normal;
+    font-family: "JetBrains Mono", "Fira Code", Consolas, monospace !important;
+    font-variant-ligatures: normal;
 }
 
-/* Bloques de código: estilo verde */
-.reveal pre {
-  background: var(--code-bg) !important;
-  border: 1px solid var(--code-border);
-  border-radius: 10px;
-  box-shadow: 0 0 0 1px rgba(22, 163, 74, 0.15);
-  padding: 0.4em;
+/*
+  Bloques de código (Quarto + Reveal):
+  - Quitar aspecto de "recuadro" (fondo/borde/sombra).
+  - Evitar scroll interno típico de <pre><code> (max-height/overflow).
+
+  Nota: si el bloque es más alto que la diapositiva, Reveal recorta.
+  Para ver TODO el código en esas diapositivas, usa la clase .scrollable
+  en la slide (ver regla al final de este archivo).
+*/
+.reveal pre,
+.reveal pre.sourceCode,
+.reveal div.sourceCode,
+.reveal div.sourceCode > pre {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0.4em 0 !important;
+    width: 100% !important;
 }
 
+/* Algunos temas/HLJS aplican fondo a hljs */
 .reveal pre code,
+.reveal pre code.hljs,
+.reveal code.hljs,
+.reveal div.sourceCode > pre > code,
 code.sourceCode,
 pre.sourceCode {
-  color: var(--accent-green-soft) !important;
+    color: var(--accent-green-soft) !important;
+    background: transparent !important;
+
+    /* Quitar caja con scroll */
+    max-height: none !important;
+    overflow: visible !important;
+
+    /* Para que quepa más código en una slide */
+    font-size: 0.7em;
+
+    /* Mantener formato por defecto (sin wrap). */
+    white-space: pre;
 }
 
-.reveal pre code {
-  font-size: 0.78em;
-  line-height: 1.35;
+/* Opt-in: envolver líneas largas sin scroll horizontal
+   Úsalo envolviendo la slide o un bloque con ::: {.code-wrap} ... */
+.reveal .code-wrap pre code,
+.reveal .code-wrap code.sourceCode {
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere !important;
 }
 
 /* Código inline */
 .reveal :not(pre) > code {
-  color: #22c55e !important;
-  background: rgba(34, 197, 94, 0.12);
-  padding: 0.1em 0.3em;
-  border-radius: 4px;
+    color: #22c55e !important;
+    background: rgba(34, 197, 94, 0.12);
+    padding: 0.1em 0.3em;
+    border-radius: 4px;
 }
 
 /* Resaltado por tokens (Pandoc/Quarto) */
-.reveal code span.kw { color: #60a5fa !important; font-weight: 700; } /* keyword */
-.reveal code span.dt { color: #93c5fd !important; } /* data type */
-.reveal code span.fu { color: #22d3ee !important; } /* function */
-.reveal code span.st { color: #86efac !important; } /* string */
+.reveal code span.kw {
+    color: #60a5fa !important;
+    font-weight: 700;
+} /* keyword */
+.reveal code span.dt {
+    color: #93c5fd !important;
+} /* data type */
+.reveal code span.fu {
+    color: #22d3ee !important;
+} /* function */
+.reveal code span.st {
+    color: #86efac !important;
+} /* string */
 .reveal code span.dv,
 .reveal code span.fl,
-.reveal code span.bn { color: #4ade80 !important; } /* números */
-.reveal code span.co { color: #94a3b8 !important; font-style: italic; } /* comentarios */
-.reveal code span.op { color: #bbf7d0 !important; } /* operadores */
-.reveal code span.va { color: #bef264 !important; } /* variables */
-.reveal code span.at { color: #67e8f9 !important; } /* annotations/attrs */
-.reveal code span.cf { color: #60a5fa !important; font-weight: 700; } /* control flow */
-.reveal code span.im { color: #22d3ee !important; } /* imports/modules */
-.reveal code span.bu { color: #a3e635 !important; } /* builtins */
+.reveal code span.bn {
+    color: #4ade80 !important;
+} /* números */
+.reveal code span.co {
+    color: #94a3b8 !important;
+    font-style: italic;
+} /* comentarios */
+.reveal code span.op {
+    color: #bbf7d0 !important;
+} /* operadores */
+.reveal code span.va {
+    color: #bef264 !important;
+} /* variables */
+.reveal code span.at {
+    color: #67e8f9 !important;
+} /* annotations/attrs */
+.reveal code span.cf {
+    color: #60a5fa !important;
+    font-weight: 700;
+} /* control flow */
+.reveal code span.im {
+    color: #22d3ee !important;
+} /* imports/modules */
+.reveal code span.bu {
+    color: #a3e635 !important;
+} /* builtins */
 
-/* Tablas y detalles visuales en tono azul/verde */
+/* ============================
+   Tablas y detalles visuales
+   ============================ */
+
 .reveal table th {
-  border-bottom: 3px solid rgba(37, 99, 235, 0.35);
+    border-bottom: 3px solid rgba(37, 99, 235, 0.35);
 }
 
 .reveal table td {
-  border-bottom: 1px solid rgba(22, 163, 74, 0.5);
+    border-bottom: 1px solid rgba(22, 163, 74, 0.5);
 }
 
 .smaller {
-  font-size: 0.7em;
+    font-size: 0.7em;
 }
 
 .smallest {
-  font-size: 0.6em;
+    font-size: 0.6em;
 }
 
-
 table {
-  font-size: 0.45em !important;
+    font-size: 0.45em !important;
+}
+
+/* ============================
+   Slides con contenido alto
+   ============================ */
+
+/*
+  Para mostrar TODO el código cuando no cabe verticalmente:
+  marca la diapositiva con {.scrollable} para permitir scroll de la slide
+  (no del bloque de código).
+*/
+.reveal section.scrollable {
+    overflow-y: auto !important;
+    height: 100% !important;
 }

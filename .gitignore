@@ -27,6 +27,7 @@ data_secretariado.csv
 
 # quatro config files
 presentation_files/
+presentation.quarto_*
 
 
 # Jupyter Notebook checkpoints
