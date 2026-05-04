@@ -470,31 +470,6 @@ datos_limpio = datos_limpio[~(datos_limpio == 'CONFIDENCIAL').all(axis=1)]
 ```
 ---
 
-```python
-datos['FECHA_NACIMIENTO'] = pd.to_datetime(datos['FECHA_NACIMIENTO'], format='%Y-%m-%d', errors='coerce')
-datos['FECHA_DESAPARICION'] = pd.to_datetime(datos['FECHA_DESAPARICION'], format='%Y-%m-%d %H:%M:%S', errors='coerce')
-datos['FECHA_REGISTRO'] = pd.to_datetime(datos['FECHA_REGISTRO'], format='%Y-%m-%d %H:%M:%S', errors='coerce')
-
-datos['EDAD'] = (pd.Timestamp.now() - datos['FECHA_NACIMIENTO']).dt.days / 365.25
-datos['GRUPO_EDAD'] = pd.cut(datos['EDAD'], bins=[0, 12, 18, 30, 50, 100],
-                              labels=['0-12', '13-17', '18-30', '31-50', '50+'])
-
-datos['MES_DESAPARICION'] = datos['FECHA_DESAPARICION'].dt.month
-datos['AÑO_DESAPARICION'] = datos['FECHA_DESAPARICION'].dt.year
-
-columnas_a_remover = [
-    'ID_VICTIMA',
-    'CVE_ENT',
-    'CVE_MUN',
-    'FECHA_NACIMIENTO',
-    'FECHA_DESAPARICION',
-    'FECHA_REGISTRO',
-]
-datos_limpio = datos.drop(columns=columnas_a_remover, errors='ignore')
-datos_limpio = datos_limpio[~(datos_limpio == 'CONFIDENCIAL').all(axis=1)]
-```
-
----
 
 ## Nuestra Implementación de Apriori
 
@@ -503,9 +478,8 @@ datos_limpio = datos_limpio[~(datos_limpio == 'CONFIDENCIAL').all(axis=1)]
 de reglas de asociación con confianza y lift.
 - Tiempo de ejecución promedio de 3.5 minutos en cada ronda. (no alcanzamos los objetivos de optimización que queriamos.)
 - 68 reglas de asosiación generadas con soporte mínimo de 0.05 y confianza mínima de 0.3.
-- Necesaria discersión de reglas con lift menor a 5.
+- Necesaria discersión de reglas con lift menor a 5 (59 reglas finales)
 
----
 
 ```python
 apriori_manual = Apriori(soporte_min=0.05, confianza_min=0.3)
@@ -518,23 +492,15 @@ df_reglas_manual.to_csv('../datasets/datos_apriori_manual.csv', encoding='utf-8'
 ```
 
 ---
-
 ```{python}
 df_apriori_manual = pd.read_csv('../datasets/datos_apriori_manual.csv')
 df_apriori_manual['antecedente'] = df_apriori_manual['antecedente'].str.extract(r"{(?:'|\")(.*)(?:'|\")}")
 df_apriori_manual['consecuente'] = df_apriori_manual['consecuente'].str.extract(r"{(?:'|\")(.*)(?:'|\")}")
 df_filtrado_manual = df_apriori_manual[df_apriori_manual['lift'] < 5]
-```
-
-![](../imagenes/grafico_apriori_reglas_manual.png)
-
----
-```{python}
 df_manual_final = df_filtrado_manual[['antecedente', 'consecuente', 'soporte', 'confianza', 'lift']]
 df_manual_final.to_csv('../datasets/datos_manual_final.csv', encoding='utf-8')
 df_manual_final.head(15)
 ```
-
 ---
 
 ## Usando mlxtend
@@ -542,33 +508,9 @@ df_manual_final.head(15)
 - Mismos parámetros de confianza mínima y soporte mínimo (0.3 y 0.5 respectivamente).
 - Tiempo de ejecución promedio de 35 segundos en cada ronda. (no alcanzamos los objetivos de optimización que queriamos.)
 - 68 reglas de asosiación generadas, mismas que con nuestra implementación del algoritmo, pero en distinto orden.
-- Necesaria discersión de reglas con lift menor a 5.
+- Necesaria discersión de reglas con lift menor a 5 (59 reglas finales).
 
 ---
-
-```{python}
-# Para trabajar con algo que entienda el apriori de mlxtend, se debe convertir a un dataframe booleano/onehot.
-# Esto es, convertir cada valor en una columna booleana.
-
-datos_para_mlxtend = datos_limpio.copy()
-
-# En lugar de insertar columna por columna, crear una lista de columnas
-columnas_onehot = {}
-
-for columna in datos_para_mlxtend.columns:
-    valores_unicos = datos_para_mlxtend[columna].dropna().unique()
-
-    for valor in valores_unicos:
-        nombre_col = f"{columna}={valor}"
-        columnas_onehot[nombre_col] = (datos_para_mlxtend[columna] == valor).astype(bool)
-
-datos_onehot = pd.DataFrame(columnas_onehot)
-
-itemsets_frequentes_mlxtend = apriori(datos_onehot, min_support=0.05, use_colnames=True)
-reglas_mlxtend = association_rules(itemsets_frequentes_mlxtend, metric='confidence', min_threshold=0.3)
-reglas_mlxtend = reglas_mlxtend[['antecedents', 'consequents', 'support', 'confidence', 'lift']]
-reglas_mlxtend.to_csv('../datasets/datos_mlxtend.csv', encoding='utf-8')
-```
 
 ```python
 # Para trabajar con algo que entienda el apriori de mlxtend, se debe convertir a un dataframe booleano/onehot.
@@ -595,18 +537,26 @@ reglas_mlxtend.to_csv('../datasets/datos_mlxtend.csv', encoding='utf-8')
 ---
 
 ```{python}
-df_mlxtend = pd.read_csv('../datasets/datos_mlxtend.csv')
+datos_para_mlxtend = datos_limpio.copy()
+columnas_onehot = {}
 
+for columna in datos_para_mlxtend.columns:
+    valores_unicos = datos_para_mlxtend[columna].dropna().unique()
+
+    for valor in valores_unicos:
+        nombre_col = f"{columna}={valor}"
+        columnas_onehot[nombre_col] = (datos_para_mlxtend[columna] == valor).astype(bool)
+
+datos_onehot = pd.DataFrame(columnas_onehot)
+
+itemsets_frequentes_mlxtend = apriori(datos_onehot, min_support=0.05, use_colnames=True)
+reglas_mlxtend = association_rules(itemsets_frequentes_mlxtend, metric='confidence', min_threshold=0.3)
+reglas_mlxtend = reglas_mlxtend[['antecedents', 'consequents', 'support', 'confidence', 'lift']]
+reglas_mlxtend.to_csv('../datasets/datos_mlxtend.csv', encoding='utf-8')
+df_mlxtend = pd.read_csv('../datasets/datos_mlxtend.csv')
 df_mlxtend['antecedents'] = df_mlxtend['antecedents'].str.extract(r"{(?:'|\")(.*)(?:'|\")}")
 df_mlxtend['consequents'] = df_mlxtend['consequents'].str.extract(r"{(?:'|\")(.*)(?:'|\")}")
 df_filtrado_mlxtend = df_mlxtend[df_mlxtend['lift'] < 5]
-```
-
-![](../imagenes/grafico_apriori_reglas_mlxtend.png)
-
----
-
-```{python}
 df_mlxtend_final = df_filtrado_mlxtend[['antecedents', 'consequents', 'support', 'confidence', 'lift']]
 df_mlxtend_final.to_csv('../datasets/datos_mlxtend_final.csv', encoding='utf-8')
 df_mlxtend_final.head(15)
@@ -684,3 +634,170 @@ terminen siendo confidenciales.
 |---:|---|---|---:|---:|---:|
 | 28 | `AÑO_DESAPARICION=2025.0` | `ESTATUS_VICTIMA=DESAPARECIDA` | 0.0512 | 0.9985 | 1.674 |
 | 29 | `AÑO_DESAPARICION=2024.0` | `ESTATUS_VICTIMA=DESAPARECIDA` | 0.0598 | 0.9960 | 1.669 |
+
+---
+
+## Analisis de clasificación
+
+- Se usa el dataset original (11 columnas, 133887 registros).
+- Importamos los modulos de scikit-learn para preprocesamiento, modelado y evaluación.
+- Queremos ver, antes que otra cosa, la distribución de la clase "ESTATUS VICTIMA" para entender
+el balanceo del dataset.
+
+---
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import (
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    classification_report,
+    confusion_matrix
+)
+plt.rcParams["figure.figsize"] = (10,6)
+sns.set_style("whitegrid")
+df = pd.read_csv(dataset)
+df["ESTATUS_VICTIMA"].value_counts()
+
+# Visualización de la variable objetivo
+sns.countplot(data=df, x = "ESTATUS_VICTIMA")
+plt.title("Distribución de ESTATUS_VICTIMA")
+plt.xticks(rotation=15)
+plt.show()
+```
+
+---
+
+## Limpieza, Clases Objetivo & División de Conjunto Entrenamiento-Prueba
+
+- Eliminamos 'ID_VICTIMA', rellenamos valores faltantes con el promedio, separamos variables
+predictorias y objetivo.
+- 0 -> 'CONFIDENCIAL', 1 -> 'DESAPARECIDA', 2 -> 'NO LOCALIZADA'.
+- División 80/20 para entrenamiento y prueba, con estratificación para mantener proporciones de clase.
+
+```{python}
+df = df.drop(columns=["ID_VICTIMA"])
+
+df.isnull().sum()
+
+for col in df.columns:
+    if df[col].dtype == "object":
+        df[col] = df[col].fillna(df[col].median())
+
+df.isnull().sum().sum()
+
+X = df.drop(columns=["ESTATUS_VICTIMA"])
+y = df["ESTATUS_VICTIMA"]
+
+label_encoders = {}
+
+for col in X.select_dtypes(include="object").columns:
+    le = LabelEncoder()
+    X[col] = le.fit_transform(X[col].astype(str))
+    label_encoders[col] = le
+
+target_encoder = LabelEncoder()
+y_encoded = target_encoder.fit_transform(y)
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y_encoded,
+    test_size = 0.20,
+    random_state = 42,
+    stratify = y_encoded
+)
+
+print("Entrenamiento:", X_train.shape)
+print("Prueba:", X_test.shape)
+```
+
+---
+
+## Entrenamiento y Cálculos para el Modelo
+
+```python
+# Creación
+modelo = RandomForestClassifier(n_estimators=100, random_state=42, class_weight="balanced")
+# Entrenamiento
+modelo.fit(X_train, y_train)
+# Predicciones
+y_pred = modelo.predict(X_test)
+
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred, average="weighted")
+recall = recall_score(y_test, y_pred, average="weighted")
+f1 = f1_score(y_test, y_pred, average = "weighted")
+```
+---
+
+```{python}
+modelo = RandomForestClassifier(n_estimators=100, random_state=42, class_weight="balanced")
+modelo.fit(X_train, y_train)
+y_pred = modelo.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred, average="weighted")
+recall = recall_score(y_test, y_pred, average="weighted")
+f1 = f1_score(y_test, y_pred, average = "weighted")
+print(f"Accuracy : {accuracy:.4f}")
+print(f"Precision : {precision:.4f}")
+print(f"Recall : {recall:.4f}")
+print(f"F1-score : {f1:.4f}")
+print(classification_report(
+    y_test,
+    y_pred,
+    target_names=target_encoder.classes_
+))
+```
+
+---
+
+```{python}
+cm = confusion_matrix(y_test, y_pred)
+plt.figure(figsize=(8,6))
+sns.heatmap(
+    cm,
+    annot=True,
+    fmt="d",
+    cmap="Blues",
+    xticklabels=target_encoder.classes_,
+    yticklabels=target_encoder.classes_
+)
+plt.xlabel("Prediccion")
+plt.ylabel("Valor real")
+plt.title("Matriz de confusion")
+plt.show()
+```
+
+---
+
+## Variables más importantes
+
+```{python}
+importancias = pd.DataFrame({"Variable" : X.columns, "Importancia" : modelo.feature_importances_})
+importancias = importancias.sort_values(by="Importancia", ascending=False)
+top_importancias = importancias.head(10)
+sns.barplot(data=top_importancias, x="Importancia", y="Variable")
+plt.title("Top 10 variables mas importantes")
+plt.show()
+```
+
+---
+
+## Análisis y Posibles Sesgos
+
+- La entidad federativa puede influir debido a diferencias regionales en los reportes (i.e.
+diferentes formas de registro)
+- El sexo puede introducir sesgos sociales o de registro
+(lo cual se ve apoyado por algunas reglas de asociación de Apriori.)
+- Las fechas puede reflejar cambios administrativos o patrones temporales.
+- Muchos datos contienen el valor CONFIDENCIAL, lo que reduce la calidad de la información disponible.
+- Existen muchas observaciones de una clase de que otras, lo que podría llevar a que el modelo
+favorezca a clases mayoritarias.
+- Hay fechas faltantes y datos incompletos que pueden afectar el rendimiento.
