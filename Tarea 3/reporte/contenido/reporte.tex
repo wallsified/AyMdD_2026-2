@@ -1,0 +1,159 @@
+\section{Limpieza del Dataset}
+
+Primeramente, haremos modificaciones para a los valores de las fechas (nacimiento, fecha de desaparición, fecha de registro) para pasarlos a un valor \texttt{datetime}. Esto nos ayudará a poder discretizar los valores de edad, mes y año de desaparición. En particular, con edad haremos una segunda discretización para trabajar con grupos de edad (0-12, 13-17, 18-30, 31-50 y 50+).
+
+\begin{lstlisting}[language=python]
+# Convertir fechas a datetime
+datos['FECHA_NACIMIENTO'] = pd.to_datetime(datos['FECHA_NACIMIENTO'], format='%Y-%m-%d', errors='coerce')
+datos['FECHA_DESAPARICION'] = pd.to_datetime(datos['FECHA_DESAPARICION'], format='%Y-%m-%d %H:%M:%S', errors='coerce')
+datos['FECHA_REGISTRO'] = pd.to_datetime(datos['FECHA_REGISTRO'], format='%Y-%m-%d %H:%M:%S', errors='coerce')
+
+# Discretizar EDAD
+datos['EDAD'] = (pd.Timestamp.now() - datos['FECHA_NACIMIENTO']).dt.days / 365.25
+datos['GRUPO_EDAD'] = pd.cut(datos['EDAD'], bins=[0, 12, 18, 30, 50, 100],
+                              labels=['0-12', '13-17', '18-30', '31-50', '50+'])
+
+# Discretizar FECHA_DESAPARICION
+datos['MES_DESAPARICION'] = datos['FECHA_DESAPARICION'].dt.month
+datos['ANO_DESAPARICION'] = datos['FECHA_DESAPARICION'].dt.year
+\end{lstlisting}
+
+Luego, removimos las columnas originales de donde viene esta información para poder trabajar con lo que ya se tiene discretizado y aquellas que no contienen información que nos sea de utilidad para ocupar los algoritmos.
+
+\begin{lstlisting}[language=python]
+columnas_a_remover = [
+    'ID_VICTIMA',
+    'CVE_ENT',
+    'CVE_MUN',
+    'FECHA_NACIMIENTO',
+    'FECHA_DESAPARICION',
+    'FECHA_REGISTRO',
+]
+
+datos_limpio = datos.drop(columns=columnas_a_remover, errors='ignore')
+datos_limpio = datos_limpio[~(datos_limpio == 'CONFIDENCIAL').all(axis=1)]
+\end{lstlisting}
+
+Algo que notamos con una revisión manual del dataset es que existen muchas entradas con un valor 'CONFIDENCIAL'. Decidimos
+dejar estos valores para poder llevar a una interpretación de los mismos posteriormente.
+
+Este dataset modificado será usado tanto en nuestra implementación de Apriori como usando la de \texttt{mlxtend}.
+
+\section{Implementación Propia de Apriori}
+
+Para nuestra implementación lo que realizamos fue crear una clase (y posteriormente un objeto) \texttt{Apriori} que incluyera los métodos necesarios para llevar a la ejecución del algortimo (cálculo de lift, de confianza, etc.). En general, usamos \texttt{frozensets} para tener conjuntos inmutables y qué de esta manera fuera más fácil eliminar duplicados, trabajar con subconjuntos iguales sin orden (\{A, B\} siendo lo mismo que \{B, A\}) y que nuestra ejecución fuera más optima a largo plazo.
+
+Decidimos incluir dos cosas extra dentro del mismo objeto Apriori. La primera fue la funcionalidad para crear las reglas de asociación. Esto para que, al momento de leer el código, fuera más directo entender de donde venían dichas reglas (pues se invocaría haciendo \texttt{Apriori.genera\_reglas\_asociacion()}). La segunda fue la capacidad de realizar el cálculo de soporte individual para poder obtener el valor más cercano a usar en el algoritmo (resultando en este caso $0.05$).
+
+Como nota aparte, por nuestras pruebas manuales, decidimos ocupar un valor de confianza mínima de $0.3$ en el algoritmo pues los resultados tenían más sentido a la realidad.
+
+El código de esta implementación se ve puede leer siguiente archivo de GitHub:
+
+Mientras que el de la ejecución se ve a continuación:
+
+\begin{lstlisting}[language=python]
+apriori_manual = Apriori(soporte_min=0.05, confianza_min=0.3)
+apriori_manual.carga_transacciones(datos_limpio, columnas=datos_limpio.columns)
+itemsets_manual = apriori_manual.apriori()
+reglas_asociacion = apriori_manual.genera_reglas_asociacion()
+df_reglas_manual = apriori_manual.obtiene_reglas_dataframe()
+# Guardado como .csv para procesamiento posterior
+df_reglas_manual.to_csv('datos_apriori_manual.csv', encoding='utf-8')
+\end{lstlisting}
+
+Esta ejecución, en promedio, tomó 3.5 minutos en cada vuelta. Por que en nuestro caso, no fue la implementación más optima.
+
+\subsection{Resultados Obtenidos}
+
+A continuación se incluye una muestra de las 68 reglas de asociación obtenidas. El archivo completo de ellas se encuentra
+disponible en este archivo en GitHub:
+
+\begin{lstlisting}
+,antecedente,consecuente,soporte,confianza,lift
+0,frozenset({'ENTIDAD=TAMAULIPAS'}),frozenset({'ORIGEN_REPORTE=PROCURADURIA GENERAL DE JUSTICIA DEL ESTADO DE TAMAULIPAS'}),0.08967263438571332,0.8925066904549509,9.887881114186348
+1,frozenset({'ORIGEN_REPORTE=PROCURADURIA GENERAL DE JUSTICIA DEL ESTADO DE TAMAULIPAS'}),frozenset({'ENTIDAD=TAMAULIPAS'}),0.08967263438571332,0.9934629706247414,9.887881114186348
+...
+63,frozenset({'GRUPO_EDAD=18-30'}),frozenset({'SEXO=HOMBRE'}),0.06344155892655746,0.6781095321730799,1.403984333870305
+64,frozenset({'GRUPO_EDAD=18-30'}),"frozenset({'SEXO=HOMBRE', 'ESTATUS_VICTIMA=DESAPARECIDA'})",0.059595031631151645,0.6369950502953856,1.4024890034352622
+65,frozenset({'ENTIDAD=ESTADO DE MEXICO'}),frozenset({'ESTATUS_VICTIMA=DESAPARECIDA'}),0.07751312674120714,0.7235080870050195,1.2126579192153457
+66,frozenset({'ENTIDAD=TAMAULIPAS'}),frozenset({'ESTATUS_VICTIMA=DESAPARECIDA'}),0.06084235213276868,0.6055605114481118,1.014968267751447
+67,frozenset({'ORIGEN_REPORTE=PROCURADURIA GENERAL DE JUSTICIA DEL ESTADO DE TAMAULIPAS'}),frozenset({'ESTATUS_VICTIMA=DESAPARECIDA'}),0.05429952123805896,0.6015721969383533,1.0082835308957736
+68,"frozenset({'ENTIDAD=TAMAULIPAS', 'ORIGEN_REPORTE=PROCURADURIA GENERAL DE JUSTICIA DEL ESTADO DE TAMAULIPAS'})",frozenset({'ESTATUS_VICTIMA=DESAPARECIDA'}),0.05393354097111743,0.6014492753623188,1.0080775044182568
+\end{lstlisting}
+
+
+Sin embargo, era necesario hacer una primera selección de las mismas, ya que algunas tienen un lift $<5$, lo cual nos lleva
+a considerarlas como reglas espurias. Esto nos hace eliminar las primeras 9 reglas resultantes, con una distribución de lift
+que se muestra como sigue:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{imagenes/grafico_apriori_reglas_manual.png}
+    \label{fig:scatter-aprori-manual}
+\end{figure}
+
+Esta pre-selección de 59 reglas será usada posteriormente para comparar resultados con los obtenidos en la siguiente sección.
+
+\section{Usando Apriori de\texttt{mlxtend}}
+
+Para poder trabajar con \texttt{mlxtend} debemos hacer algunas modificaciones a una copia de nuestro dataset limpio (el que usamos anteriormente para ocupar nuestra implementación de Apriori). El dataframe que ocupa \texttt{mlxtend.aprori} debe ser un dataframe booleano o \textit{onehot}. Esto es, un dataframe en donde se de convertir cada valor posible de una columna en una columna booleana. Por ejemplo, si tenemos que los valores en la columna 'SEXO' son HOMBRE, MUJER, etc, entonces se debe detener un columna SEXO=HOMBRE con valores True o False, otra con SEXO=MUJER, etc, etc.
+
+El código de esta implementación se ve de la siguiente manera:
+
+\begin{lstlisting}[language=python]
+# Para trabajar con algo que entienda el apriori de mlxtend, se debe convertir a un dataframe booleano/onehot.
+# Esto es, convertir cada valor en una columna booleana.
+
+datos_para_mlxtend = datos_limpio.copy()
+
+# En lugar de insertar columna por columna, crear una lista de columnas
+columnas_onehot = {}
+
+for columna in datos_para_mlxtend.columns:
+    valores_unicos = datos_para_mlxtend[columna].dropna().unique()
+
+    for valor in valores_unicos:
+        nombre_col = f"{columna}={valor}"
+        columnas_onehot[nombre_col] = (datos_para_mlxtend[columna] == valor).astype(bool)
+
+datos_onehot = pd.DataFrame(columnas_onehot)
+
+itemsets_frequentes_mlxtend = apriori(datos_onehot, min_support=0.05, use_colnames=True)
+reglas_mlxtend = association_rules(itemsets_frequentes_mlxtend, metric='confidence', min_threshold=0.3)
+reglas_mlxtend = reglas_mlxtend[['antecedents', 'consequents', 'support', 'confidence', 'lift']]
+reglas_mlxtend.to_csv('datos_mlxtend.csv', encoding='utf-8')
+\end{lstlisting}
+
+Esta ejecución en promedio tomó 35 segundos segundos en cada vuelta, lo que lo hace considerablemente más rápido y mejor optimizado que nuestra implementación.
+
+\subsection{Resultados Obtenidos}
+
+Sin embargo, aunque las reglas de asociación obtenidas con este método estuvieron en un orden distinto, obtuvimos las mismas 68 reglas de asociación que con nuestra implementación manual. He aquí una muestra de los resultados:
+
+\begin{lstlisting}
+,antecedents,consequents,support,confidence,lift
+0,frozenset({'ORIGEN_REPORTE=PROCURADURIA GENERAL DE JUSTICIA DEL ESTADO DE TAMAULIPAS'}),frozenset({'ESTATUS_VICTIMA=DESAPARECIDA'}),0.05429952123805896,0.6015721969383533,1.0082835308957736
+1,frozenset({'ENTIDAD=TAMAULIPAS'}),frozenset({'ORIGEN_REPORTE=PROCURADURIA GENERAL DE JUSTICIA DEL ESTADO DE TAMAULIPAS'}),0.08967263438571332,0.8925066904549509,9.887881114186348
+2,frozenset({'ORIGEN_REPORTE=PROCURADURIA GENERAL DE JUSTICIA DEL ESTADO DE TAMAULIPAS'}),frozenset({'ENTIDAD=TAMAULIPAS'}),0.08967263438571332,0.9934629706247414,9.887881114186348
+...
+66,"frozenset({'ENTIDAD=JALISCO', 'SEXO=CONFIDENCIAL'})","frozenset({'ESTATUS_VICTIMA=CONFIDENCIAL', 'MUNICIPIO=CONFIDENCIAL'})",0.07468985039622966,1.0,2.7241042544100593
+67,"frozenset({'ENTIDAD=JALISCO', 'MUNICIPIO=CONFIDENCIAL'})","frozenset({'ESTATUS_VICTIMA=CONFIDENCIAL', 'SEXO=CONFIDENCIAL'})",0.07468985039622966,1.0,2.7241042544100593
+68,frozenset({'ENTIDAD=JALISCO'}),"frozenset({'ESTATUS_VICTIMA=CONFIDENCIAL', 'MUNICIPIO=CONFIDENCIAL', 'SEXO=CONFIDENCIAL'})",0.07468985039622966,0.6751738572682466,1.8392439770508808
+\end{lstlisting}
+
+
+El archivo completo de ellas se encuentra disponible en este archivo en GitHub:
+
+De igual manera, se hace una preselección de reglas con lift$<5$ obteniendo, de igual manera, 59 reglas de este conjunto:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{imagenes/grafico_apriori_reglas_mlxtend.png}
+    \label{fig:scatter-aprori-mlxtend}
+\end{figure}
+
+En consecuente, en lugar de hacer una comparativa de las reglas obtenidas, procedemos con la selección de las mismas para llegar a la interpretación de los resultados.
+
+\section{Interpretación de las Reglas de Asociación}
+
+\input{contenido/interpretaciones}
