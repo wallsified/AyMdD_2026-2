@@ -1,4 +1,6 @@
-\section{Limpieza del Dataset}
+\section{Apriori}
+
+\subsection{Preprocesamiento de Datos}
 
 Primeramente, haremos modificaciones para a los valores de las fechas (nacimiento, fecha de desaparición, fecha de registro) para pasarlos a un valor \texttt{datetime}. Esto nos ayudará a poder discretizar los valores de edad, mes y año de desaparición. En particular, con edad haremos una segunda discretización para trabajar con grupos de edad (0-12, 13-17, 18-30, 31-50 y 50+).
 
@@ -18,7 +20,8 @@ datos['MES_DESAPARICION'] = datos['FECHA_DESAPARICION'].dt.month
 datos['ANO_DESAPARICION'] = datos['FECHA_DESAPARICION'].dt.year
 \end{lstlisting}
 
-Luego, removimos las columnas originales de donde viene esta información para poder trabajar con lo que ya se tiene discretizado y aquellas que no contienen información que nos sea de utilidad para ocupar los algoritmos.
+Luego, removimos las columnas originales de donde viene esta información para poder trabajar con lo que ya se tiene discretizado y
+aquellas que no contienen información que nos sea de utilidad para ocupar los algoritmos.
 
 \begin{lstlisting}[language=python]
 columnas_a_remover = [
@@ -39,15 +42,25 @@ dejar estos valores para poder llevar a una interpretación de los mismos poster
 
 Este dataset modificado será usado tanto en nuestra implementación de Apriori como usando la de \texttt{mlxtend}.
 
-\section{Implementación Propia de Apriori}
+\subsection{Implementación Propia de Apriori}
 
-Para nuestra implementación lo que realizamos fue crear una clase (y posteriormente un objeto) \texttt{Apriori} que incluyera los métodos necesarios para llevar a la ejecución del algortimo (cálculo de lift, de confianza, etc.). En general, usamos \texttt{frozensets} para tener conjuntos inmutables y qué de esta manera fuera más fácil eliminar duplicados, trabajar con subconjuntos iguales sin orden (\{A, B\} siendo lo mismo que \{B, A\}) y que nuestra ejecución fuera más optima a largo plazo.
+Para nuestra implementación lo que realizamos fue crear una clase (y posteriormente un objeto) \texttt{Apriori} que incluyera los métodos
+necesarios para llevar a la ejecución del algortimo (cálculo de lift, de confianza, etc.). En general, usamos \texttt{frozensets} para tener
+conjuntos inmutables y qué de esta manera fuera más fácil eliminar duplicados, trabajar con subconjuntos iguales sin orden (\{A, B\} siendo
+lo mismo que \{B, A\}) y que nuestra ejecución fuera más optima a largo plazo.
 
-Decidimos incluir dos cosas extra dentro del mismo objeto Apriori. La primera fue la funcionalidad para crear las reglas de asociación. Esto para que, al momento de leer el código, fuera más directo entender de donde venían dichas reglas (pues se invocaría haciendo \texttt{Apriori.genera\_reglas\_asociacion()}). La segunda fue la capacidad de realizar el cálculo de soporte individual para poder obtener el valor más cercano a usar en el algoritmo (resultando en este caso $0.05$).
+Decidimos incluir dos cosas extra dentro del mismo objeto Apriori. La primera fue la funcionalidad para crear las reglas de asociación.
+Esto para que, al momento de leer el código, fuera más directo entender de donde venían dichas reglas (pues se invocaría haciendo
+\texttt{Apriori.genera\_reglas\_asociacion()}). La segunda fue la capacidad de realizar el cálculo de soporte individual para poder obtener
+el valor más cercano a usar en el algoritmo (resultando en este caso $0.05$).
 
-Como nota aparte, por nuestras pruebas manuales, decidimos ocupar un valor de confianza mínima de $0.3$ en el algoritmo pues los resultados tenían más sentido a la realidad.
+Como nota aparte, por nuestras pruebas manuales, decidimos ocupar un valor de confianza mínima de $0.3$ en el algoritmo pues los resultados
+tenían más sentido a la realidad.
 
-El código de esta implementación se ve puede leer \href{https://github.com/Yoba7-7/AyMdD_2026-2/blob/main/Tarea%203/scripts/apriori.py}{en este archivo en GitHub}.
+\begin{tcolorbox}[title=Nota]
+    El código de esta implementación se encuentra disponible
+    \href{https://github.com/Yoba7-7/AyMdD_2026-2/blob/main/Tarea%203/scripts/apriori.py}{en este archivo en GitHub}.
+\end{tcolorbox}
 
 Mientras que el de la ejecución se ve a continuación:
 
@@ -63,25 +76,9 @@ df_reglas_manual.to_csv('datos_apriori_manual.csv', encoding='utf-8')
 
 Esta ejecución, en promedio, tomó 3.5 minutos en cada vuelta. Por que en nuestro caso, no fue la implementación más optima.
 
-\subsection{Resultados Obtenidos}
+\subsubsection{Resultados Obtenidos}
 
-A continuación se incluye una muestra de las 68 reglas de asociación obtenidas. El archivo completo de ellas se encuentra
-disponible \href{https://github.com/Yoba7-7/AyMdD_2026-2/blob/main/Tarea%203/datasets/datos_apriori_manual.csv}{en este archivo en GitHub}.
-
-\begin{lstlisting}
-,antecedente,consecuente,soporte,confianza,lift
-0,frozenset({'ENTIDAD=TAMAULIPAS'}),frozenset({'ORIGEN_REPORTE=PROCURADURIA GENERAL DE JUSTICIA DEL ESTADO DE TAMAULIPAS'}),0.08967263438571332,0.8925066904549509,9.887881114186348
-1,frozenset({'ORIGEN_REPORTE=PROCURADURIA GENERAL DE JUSTICIA DEL ESTADO DE TAMAULIPAS'}),frozenset({'ENTIDAD=TAMAULIPAS'}),0.08967263438571332,0.9934629706247414,9.887881114186348
-...
-63,frozenset({'GRUPO_EDAD=18-30'}),frozenset({'SEXO=HOMBRE'}),0.06344155892655746,0.6781095321730799,1.403984333870305
-64,frozenset({'GRUPO_EDAD=18-30'}),"frozenset({'SEXO=HOMBRE', 'ESTATUS_VICTIMA=DESAPARECIDA'})",0.059595031631151645,0.6369950502953856,1.4024890034352622
-65,frozenset({'ENTIDAD=ESTADO DE MEXICO'}),frozenset({'ESTATUS_VICTIMA=DESAPARECIDA'}),0.07751312674120714,0.7235080870050195,1.2126579192153457
-66,frozenset({'ENTIDAD=TAMAULIPAS'}),frozenset({'ESTATUS_VICTIMA=DESAPARECIDA'}),0.06084235213276868,0.6055605114481118,1.014968267751447
-67,frozenset({'ORIGEN_REPORTE=PROCURADURIA GENERAL DE JUSTICIA DEL ESTADO DE TAMAULIPAS'}),frozenset({'ESTATUS_VICTIMA=DESAPARECIDA'}),0.05429952123805896,0.6015721969383533,1.0082835308957736
-68,"frozenset({'ENTIDAD=TAMAULIPAS', 'ORIGEN_REPORTE=PROCURADURIA GENERAL DE JUSTICIA DEL ESTADO DE TAMAULIPAS'})",frozenset({'ESTATUS_VICTIMA=DESAPARECIDA'}),0.05393354097111743,0.6014492753623188,1.0080775044182568
-\end{lstlisting}
-
-
+Se obtuvieron en total 68 reglas de asociación con esta implementación, con un soporte mínimo de $0.05$ y una confianza mínima de $0.3$.
 Sin embargo, era necesario hacer una primera selección de las mismas, ya que algunas tienen un lift $<5$, lo cual nos lleva
 a considerarlas como reglas espurias. Esto nos hace eliminar las primeras 9 reglas resultantes, con una distribución de lift
 que se muestra como sigue:
@@ -92,9 +89,31 @@ que se muestra como sigue:
     \label{fig:scatter-aprori-manual}
 \end{figure}
 
+Una muestra de las reglas obtenidas se muestra a continuación:
+
+\begin{lstlisting}{language=python}
+,antecedente,consecuente,soporte,confianza,lift
+10,"ENTIDAD=JALISCO', 'ESTATUS_VICTIMA=CONFIDENCIAL', 'MUNICIPIO=CONFIDENCIAL",SEXO=CONFIDENCIAL,0.0746898503962296,1.0,2.7241042544100598
+11,"ENTIDAD=JALISCO', 'SEXO=CONFIDENCIAL",ESTATUS_VICTIMA=CONFIDENCIAL,0.0746898503962296,1.0,2.7241042544100598
+12,"ENTIDAD=JALISCO', 'SEXO=CONFIDENCIAL', 'MUNICIPIO=CONFIDENCIAL",ESTATUS_VICTIMA=CONFIDENCIAL,0.0746898503962296,1.0,2.7241042544100598
+13,ESTATUS_VICTIMA=CONFIDENCIAL,"SEXO=CONFIDENCIAL', 'MUNICIPIO=CONFIDENCIAL",0.3670931457124291,1.0,2.7241042544100598
+14,SEXO=CONFIDENCIAL,MUNICIPIO=CONFIDENCIAL,0.3670931457124291,1.0,2.7241042544100598
+15,"ENTIDAD=JALISCO', 'SEXO=CONFIDENCIAL",MUNICIPIO=CONFIDENCIAL,0.0746898503962296,1.0,2.7241042544100598
+16,MUNICIPIO=CONFIDENCIAL,SEXO=CONFIDENCIAL,0.3670931457124291,1.0,2.7241042544100598
+17,ESTATUS_VICTIMA=CONFIDENCIAL,SEXO=CONFIDENCIAL,0.3670931457124291,1.0,2.7241042544100598
+18,SEXO=CONFIDENCIAL,ESTATUS_VICTIMA=CONFIDENCIAL,0.3670931457124291,1.0,2.7241042544100598
+19,MUNICIPIO=CONFIDENCIAL,ESTATUS_VICTIMA=CONFIDENCIAL,0.3670931457124291,1.0,2.7241042544100598
+20,ESTATUS_VICTIMA=CONFIDENCIAL,MUNICIPIO=CONFIDENCIAL,0.3670931457124291,1.0,2.7241042544100598
+\end{lstlisting}
+
 Esta pre-selección de 59 reglas será usada posteriormente para comparar resultados con los obtenidos en la siguiente sección.
 
-\section{Usando Apriori de \texttt{mlxtend}}
+\begin{tcolorbox}[title=Nota]
+	El archivo de las 59 reglas seleccionadas se encuentra disponible
+	\href{https://github.com/wallsified/AyMdD_2026-2/blob/main/Tarea%203/datasets/datos_manual_final.csv}{en este archivo en GitHub}.
+\end{tcolorbox}
+
+\subsection{Usando Apriori de \texttt{mlxtend}}
 
 Para poder trabajar con \texttt{mlxtend} debemos hacer algunas modificaciones a una copia de nuestro dataset limpio (el que usamos anteriormente para ocupar nuestra implementación de Apriori). El dataframe que ocupa \texttt{mlxtend.aprori} debe ser un dataframe booleano o \textit{onehot}. Esto es, un dataframe en donde se de convertir cada valor posible de una columna en una columna booleana. Por ejemplo, si tenemos que los valores en la columna 'SEXO' son HOMBRE, MUJER, etc, entonces se debe detener un columna SEXO=HOMBRE con valores True o False, otra con SEXO=MUJER, etc, etc.
 
@@ -126,25 +145,11 @@ reglas_mlxtend.to_csv('datos_mlxtend.csv', encoding='utf-8')
 
 Esta ejecución en promedio tomó 35 segundos segundos en cada vuelta, lo que lo hace considerablemente más rápido y mejor optimizado que nuestra implementación.
 
-\subsection{Resultados Obtenidos}
+\subsubsection{Resultados Obtenidos}
 
-Sin embargo, aunque las reglas de asociación obtenidas con este método estuvieron en un orden distinto, obtuvimos las mismas 68 reglas de asociación que con nuestra implementación manual. He aquí una muestra de los resultados:
-
-\begin{lstlisting}
-,antecedents,consequents,support,confidence,lift
-0,frozenset({'ORIGEN_REPORTE=PROCURADURIA GENERAL DE JUSTICIA DEL ESTADO DE TAMAULIPAS'}),frozenset({'ESTATUS_VICTIMA=DESAPARECIDA'}),0.05429952123805896,0.6015721969383533,1.0082835308957736
-1,frozenset({'ENTIDAD=TAMAULIPAS'}),frozenset({'ORIGEN_REPORTE=PROCURADURIA GENERAL DE JUSTICIA DEL ESTADO DE TAMAULIPAS'}),0.08967263438571332,0.8925066904549509,9.887881114186348
-2,frozenset({'ORIGEN_REPORTE=PROCURADURIA GENERAL DE JUSTICIA DEL ESTADO DE TAMAULIPAS'}),frozenset({'ENTIDAD=TAMAULIPAS'}),0.08967263438571332,0.9934629706247414,9.887881114186348
-...
-66,"frozenset({'ENTIDAD=JALISCO', 'SEXO=CONFIDENCIAL'})","frozenset({'ESTATUS_VICTIMA=CONFIDENCIAL', 'MUNICIPIO=CONFIDENCIAL'})",0.07468985039622966,1.0,2.7241042544100593
-67,"frozenset({'ENTIDAD=JALISCO', 'MUNICIPIO=CONFIDENCIAL'})","frozenset({'ESTATUS_VICTIMA=CONFIDENCIAL', 'SEXO=CONFIDENCIAL'})",0.07468985039622966,1.0,2.7241042544100593
-68,frozenset({'ENTIDAD=JALISCO'}),"frozenset({'ESTATUS_VICTIMA=CONFIDENCIAL', 'MUNICIPIO=CONFIDENCIAL', 'SEXO=CONFIDENCIAL'})",0.07468985039622966,0.6751738572682466,1.8392439770508808
-\end{lstlisting}
-
-
-El archivo completo de ellas se encuentra disponible \href{https://github.com/Yoba7-7/AyMdD_2026-2/blob/main/Tarea%203/datasets/datos_mlxtend_manual.csv}{en este archivo en GitHub}.
-
-De igual manera, se hace una preselección de reglas con lift$<5$ obteniendo, de igual manera, 59 reglas de este conjunto:
+Sin embargo, aunque las reglas de asociación obtenidas con este método estuvieron en un orden distinto, obtuvimos las mismas 68 reglas de asociación
+que con nuestra implementación manual. De igual manera, se hace una preselección de reglas con lift$<5$ obteniendo, de igual manera, 59 reglas de este conjunto
+He aquí una muestra de los resultados:
 
 \begin{figure}[H]
     \centering
@@ -152,8 +157,27 @@ De igual manera, se hace una preselección de reglas con lift$<5$ obteniendo, de
     \label{fig:scatter-aprori-mlxtend}
 \end{figure}
 
-En consecuente, en lugar de hacer una comparativa de las reglas obtenidas, procedemos con la selección de las mismas para llegar a la interpretación de los resultados.
+\begin{lstlisting}
+,antecedents,consequents,support,confidence,lift
+0,ORIGEN_REPORTE=PROCURADURIA GENERAL DE JUSTICIA DEL ESTADO DE TAMAULIPAS,ESTATUS_VICTIMA=DESAPARECIDA,0.0542995212380589,0.6015721969383533,1.0082835308957736
+7,SEXO=CONFIDENCIAL,ESTATUS_VICTIMA=CONFIDENCIAL,0.3670931457124291,1.0,2.7241042544100598
+8,ESTATUS_VICTIMA=CONFIDENCIAL,SEXO=CONFIDENCIAL,0.3670931457124291,1.0,2.7241042544100598
+9,ENTIDAD=JALISCO,SEXO=CONFIDENCIAL,0.0746898503962296,0.6751738572682466,1.8392439770508808
+10,SEXO=CONFIDENCIAL,MUNICIPIO=CONFIDENCIAL,0.3670931457124291,1.0,2.7241042544100598
+11,MUNICIPIO=CONFIDENCIAL,SEXO=CONFIDENCIAL,0.3670931457124291,1.0,2.7241042544100598
+12,SEXO=HOMBRE,ESTATUS_VICTIMA=DESAPARECIDA,0.4541889802594725,0.940370519283704,1.5761368500060997
+\end{lstlisting}
 
-\section{Interpretación de las Reglas de Asociación}
+\begin{tcolorbox}[title=Nota]
+	El archivo de las 59 reglas usando mlxtend se encuentra disponible
+	\href{https://github.com/wallsified/AyMdD_2026-2/blob/main/Tarea%203/datasets/datos_mlxtend_final.csv}{en este archivo en GitHub}.
+\end{tcolorbox}
+
+En consecuente, en lugar de hacer una comparativa de las reglas obtenidas, procedemos con la selección de las mismas para llegar a la
+interpretación de los resultados.
+
+\subsection{Interpretación de las Reglas de Asociación}
 
 \input{contenido/interpretaciones}
+
+\input{contenido/clasificacion.tex}
